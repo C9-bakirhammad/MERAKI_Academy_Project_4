@@ -108,4 +108,197 @@ const login = (req, res) => {
       });
     });
 };
-module.exports = { register, login };
+
+//getUserById fucntion >>
+const getUserById = (req, res) => {
+  const { id } = req.params;
+  usersModel
+    .findOne({ _id: id }, "-phoneNumber -password -role")
+    .populate(
+      "followers",
+      "-birthDate -phoneNumber -email -password -role -coverImage -photos -myPages -likedPages -followers -following -__v"
+    )
+    .populate(
+      "following",
+      "-birthDate -phoneNumber -email -password -role -coverImage -photos -myPages -likedPages -followers -following -__v"
+    )
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "User is found",
+        user: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
+// getUserByCountry function >>
+const getUsersByCountry = (req, res) => {
+  const { country } = req.query;
+  usersModel
+    .find(
+      { country: country },
+      "-phoneNumber -password -email -role -followers -coverImage -photos"
+    )
+    .then((result) => {
+      if (result.length !== 0) {
+        return res.status(200).json({
+          success: true,
+          message: "Users found",
+          users: result,
+        });
+      }
+      res.status(404).json({
+        success: false,
+        message: "No users found",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
+// update followers >>
+const updateFollowers = (req, res) => {
+  const { id } = req.params;
+  const follower = req.body.follower;
+  const isFollow = req.body.isFollow;
+
+  if (isFollow) {
+    return usersModel
+      .findOneAndUpdate(
+        { _id: id },
+        { $push: { followers: follower } },
+        { new: true }
+      )
+      .then((result) => {
+        res.status(201).json({
+          success: true,
+          message: "User added to followers",
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  }
+  // * update Follower if user UnFollow
+  usersModel
+    .findOneAndUpdate(
+      { _id: id },
+      { $pull: { followers: follower } },
+      { new: true }
+    )
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: "User removed from followers",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
+// update following >>
+const updateFollowing = (req, res) => {
+  const { id } = req.params;
+  const following = req.body.following;
+  const isFollow = req.body.isFollow;
+
+  if (isFollow) {
+    return usersModel
+      .findOneAndUpdate(
+        { _id: id },
+        { $push: { following: following } },
+        { new: true }
+      )
+      .then((result) => {
+        res.status(201).json({
+          success: true,
+          message: "User added to following",
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  }
+  // * update Following if user UnFollow
+  usersModel
+    .findOneAndUpdate(
+      { _id: id },
+      { $pull: { following: following } },
+      { new: true }
+    )
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: "User removed from following",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
+// getAllFollowById function >>
+const getAllFollowById = (req, res) => {
+  const { id } = req.params;
+  usersModel
+    .findOne({ _id: id }, "firstName lastName followers following")
+    .populate(
+      "followers",
+      "-birthDate -phoneNumber -email -password -role -coverImage -photos -myPages -likedPages -followers -following -__v"
+    )
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "Success",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
+
+
+module.exports = {
+  register,
+  login,
+  getUserById,
+  getUsersByCountry,
+  updateFollowers,
+  updateFollowing,
+  getAllFollowById,
+};
