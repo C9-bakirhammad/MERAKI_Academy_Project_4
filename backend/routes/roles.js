@@ -3,6 +3,8 @@ const roleRouter = express.Router();
 
 // roleRouter on http://localhost:5000/role
 
-roleRouter.post("/");
+const { createRole } = require("../controllers/roles");
+
+roleRouter.post("/", createRole);
 
 module.exports = roleRouter;

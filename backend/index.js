@@ -13,7 +13,7 @@ app.use(express.json());
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
 const commentsRouter = require("./routes/comments");
-const roleRouter = require("./routes/role");
+const roleRouter = require("./routes/roles");
 
 // use Routers
 app.use("/users", usersRouter);

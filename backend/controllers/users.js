@@ -21,7 +21,7 @@ const register = (req, res) => {
     phoneNumber,
     email,
     password,
-    role: "65907338ffe9d001657fa63a",
+    role: "65975412ca0cdedfbfa0185c",
   });
   newUser
     .save()
