@@ -7,7 +7,6 @@ const postSchema = new mongoose.Schema({
   postImage: [{ type: String }],
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  likeNumber: { type: Number },
 });
 
 module.exports = mongoose.model("Post", postSchema);

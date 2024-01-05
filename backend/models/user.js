@@ -18,8 +18,6 @@ const userSchema = new mongoose.Schema({
   photos: [{ type: String }],
   myPages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Page" }],
   likedPages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Page" }],
-  // followersNumber: { type: Number },
-  // followingNumber: { type: Number },
   /*  notification: [
     {
       id: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
@@ -27,7 +25,6 @@ const userSchema = new mongoose.Schema({
     },
   ], */
 });
-
 
 // pre Middleware for register .save()
 userSchema.pre("save", async function () {

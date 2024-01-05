@@ -1,6 +1,8 @@
 const usersModel = require("../models/user");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-// create new user
+// create new user >>
 const register = (req, res) => {
   const {
     firstName,
@@ -54,9 +56,56 @@ const login = (req, res) => {
   const password = req.body.password;
   usersModel
     .findOne({ email })
-    .then((result) => {
-      console.log(result);
+    .populate("role", "-_id")
+    .then(async (result) => {
+      if (!result) {
+        return res.status(403).json({
+          success: false,
+          message: "Wrong Email or password",
+        });
+      }
+      try {
+        const checkPassowrd = await bcrypt.compare(password, result.password);
+        if (!checkPassowrd) {
+          return res.status(403).json({
+            success: false,
+            message: "Wrong email or Password",
+          });
+        }
+
+        const payload = {
+          userId: result._id,
+          role: result.role,
+        };
+
+        const options = {
+          expiresIn: "120m",
+        };
+
+        const token = jwt.sign(payload, process.env.SECRET, options);
+
+        res.status(200).json({
+          success: true,
+          message: "Valid login",
+          token: token,
+          userInfo: {
+            userId: result._id,
+            firstName: result.firstName,
+            lastName: result.lastName,
+            country: result.country,
+            profileImage: result.profileImage,
+          },
+        });
+      } catch (err) {
+        throw err;
+      }
     })
-    .catch((err) => {});
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
 };
 module.exports = { register, login };
