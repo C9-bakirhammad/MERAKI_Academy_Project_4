@@ -173,7 +173,7 @@ const getUsersByCountry = (req, res) => {
 
 // add following and followers >>
 const addFollow = (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params; //! edit from token
   const friend = req.body.friend;
 
   usersModel // * add to follower
@@ -214,7 +214,7 @@ const addFollow = (req, res) => {
 
 // remove following and follower>>
 const unFollow = (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params; //! edit from token
   const friend = req.body.friend;
 
   usersModel // * remove from follower
@@ -259,7 +259,7 @@ const getAllFollowsById = (req, res) => {
   usersModel
     .findOne({ _id: id }, "firstName lastName followers following")
     .populate(
-      "followers",
+      "followers", //! edit here 
       "-birthDate -phoneNumber -email -password -role -coverImage -photos -myPages -likedPages -followers -following -__v"
     )
     .populate(

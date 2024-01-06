@@ -38,7 +38,7 @@ const getPostsByAuthorId = (req, res) => {
     .populate({
       path: "author",
       select: "firstName lastName profileImage",
-      /*   populate:[{
+      /*   populate:[{  // !
             path: "commenter",
             select: ""
         }] */
@@ -60,4 +60,30 @@ const getPostsByAuthorId = (req, res) => {
     });
 };
 
-module.exports = { createPost, getPostsByAuthorId };
+// Delete post by postid >>
+const deletePostById = (req, res) => {
+  const { id } = req.params;
+  postsModel
+    .findOneAndDelete({ _id: id })
+    .then((result) => {
+      if (!result) {
+        return res.status(404).json({
+          success: false,
+          message: "Post Not Found",
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: "Post deleted",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err: err,
+      });
+    });
+};
+
+module.exports = { createPost, getPostsByAuthorId, deletePostById };
