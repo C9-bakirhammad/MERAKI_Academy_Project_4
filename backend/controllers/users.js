@@ -95,6 +95,7 @@ const login = (req, res) => {
             firstName: result.firstName,
             lastName: result.lastName,
             country: result.country,
+            following: result.following,
             profileImage: result.profileImage,
           },
         });
@@ -283,7 +284,7 @@ const getAllFollowsById = (req, res) => {
 
 // add/remove liked posts >>
 const updateLikesByUserId = (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params; //! edit from token
   const { postId } = req.body;
   const { isLike } = req.body;
 
