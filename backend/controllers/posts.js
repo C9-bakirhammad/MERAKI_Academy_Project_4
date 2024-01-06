@@ -86,4 +86,38 @@ const deletePostById = (req, res) => {
     });
 };
 
-module.exports = { createPost, getPostsByAuthorId, deletePostById };
+// Update post by postid >>
+const updatePostById = (req, res) => {
+  const { id } = req.params;
+  const { postText } = req.body;
+
+  postsModel
+    .findOneAndUpdate({ _id: id }, { postText })
+    .then((result) => {
+      if (!result) {
+        return res.status(404).json({
+          success: false,
+          message: "Post Not Found",
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: "Post updated",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err: err,
+      });
+    });
+};
+// todo >> Function of (model.delete.resulte(model.update))post image
+
+module.exports = {
+  createPost,
+  getPostsByAuthorId,
+  deletePostById,
+  updatePostById,
+};
