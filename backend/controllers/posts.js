@@ -115,9 +115,93 @@ const updatePostById = (req, res) => {
 };
 // todo >> Function of (model.delete.resulte(model.update))post image
 
+// update (add or remove) likes of post >>
+const updateLikesByPostId = (req, res) => {
+  const { postId } = req.params;
+  const liker = req.body.liker; // ! edit from token
+  const { isLike } = req.body;
+
+  if (isLike) {
+    return postsModel // * add to Likes
+      .findOneAndUpdate({ _id: postId }, { $push: { likes: liker } })
+      .then((result) => {
+        if (!result) {
+          return res.status(404).json({
+            success: false,
+            message: "Post Not Found",
+          });
+        }
+        res.status(200).json({
+          success: true,
+          message: "Like added",
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server Error",
+          err: err,
+        });
+      });
+  }
+
+  postsModel // * remove from Likes
+    .findOneAndUpdate({ _id: postId }, { $pull: { likes: liker } })
+    .then((result) => {
+      if (!result) {
+        return res.status(404).json({
+          success: false,
+          message: "Post Not Found",
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: "Like removed",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err: err,
+      });
+    });
+};
+
+// get all Likes of post >>
+const getPostLikes = (req, res) => {
+  const { id } = req.params;
+
+  postsModel
+    .findOne({ _id: id }, "likes")
+    .populate("likes", "firstName lastName profileImage -_id")
+    .then((result) => {
+      if (!result) {
+        return res.status(404).json({
+          success: false,
+          message: "Post Not Found",
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: "Post Found",
+        post: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err: err,
+      });
+    });
+};
+
 module.exports = {
   createPost,
   getPostsByAuthorId,
   deletePostById,
   updatePostById,
+  updateLikesByPostId,
+  getPostLikes,
 };

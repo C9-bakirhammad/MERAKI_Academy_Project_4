@@ -288,7 +288,7 @@ const updateLikesByUserId = (req, res) => {
   const { postId } = req.body;
   const { isLike } = req.body;
 
-  if (isLike) {
+  if (isLike) { // ! handle if user not found!
     return usersModel // * add like to user
       .findOneAndUpdate({ _id: id }, { $push: { postsLike: postId } })
       .then((result) => {
