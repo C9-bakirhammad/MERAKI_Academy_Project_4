@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true },
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  postsLike: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   profileImage: { type: String, default: "" },
   coverImage: { type: String, default: "" },
   photos: [{ type: String }],

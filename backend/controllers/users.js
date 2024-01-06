@@ -13,6 +13,7 @@ const register = (req, res) => {
     phoneNumber,
     email,
     password,
+    postsLike,
   } = req.body;
   const newUser = new usersModel({
     firstName,
@@ -23,6 +24,7 @@ const register = (req, res) => {
     phoneNumber,
     email,
     password,
+    postsLike,
     role: "65975412ca0cdedfbfa0185c",
   });
   newUser
@@ -168,111 +170,99 @@ const getUsersByCountry = (req, res) => {
     });
 };
 
-// update followers >>
-const updateFollowers = (req, res) => {
+// add following and followers >>
+const addFollow = (req, res) => {
   const { id } = req.params;
-  const follower = req.body.follower;
-  const isFollow = req.body.isFollow;
+  const friend = req.body.friend;
 
-  if (isFollow) {
-    return usersModel
-      .findOneAndUpdate(
-        { _id: id },
-        { $push: { followers: follower } },
-        { new: true }
-      )
-      .then((result) => {
-        res.status(201).json({
-          success: true,
-          message: "User added to followers",
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          success: false,
-          message: "Server error",
-          err: err,
-        });
-      });
-  }
-  // * update Follower if user UnFollow
-  usersModel
+  usersModel // * add to follower
     .findOneAndUpdate(
       { _id: id },
-      { $pull: { followers: follower } },
+      { $push: { followers: friend } },
       { new: true }
     )
     .then((result) => {
-      res.status(201).json({
-        success: true,
-        message: "User removed from followers",
-      });
+      usersModel // * add to following
+        .findOneAndUpdate(
+          { _id: friend },
+          { $push: { following: id } },
+          { new: true }
+        )
+        .then((result) => {
+          res.status(201).json({
+            success: true,
+            message: "Add successfully",
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            success: false,
+            message: "Following Server error",
+            err: err,
+          });
+        });
     })
     .catch((err) => {
       res.status(500).json({
         success: false,
-        message: "Server error",
+        message: "Follower Server error",
         err: err,
       });
     });
 };
 
-// update following >>
-const updateFollowing = (req, res) => {
+// remove following and follower>>
+const unFollow = (req, res) => {
   const { id } = req.params;
-  const following = req.body.following;
-  const isFollow = req.body.isFollow;
+  const friend = req.body.friend;
 
-  if (isFollow) {
-    return usersModel
-      .findOneAndUpdate(
-        { _id: id },
-        { $push: { following: following } },
-        { new: true }
-      )
-      .then((result) => {
-        res.status(201).json({
-          success: true,
-          message: "User added to following",
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          success: false,
-          message: "Server error",
-          err: err,
-        });
-      });
-  }
-  // * update Following if user UnFollow
-  usersModel
+  usersModel // * remove from follower
     .findOneAndUpdate(
       { _id: id },
-      { $pull: { following: following } },
+      { $pull: { followers: friend } },
       { new: true }
     )
     .then((result) => {
-      res.status(201).json({
-        success: true,
-        message: "User removed from following",
-      });
+      usersModel // * remove from following
+        .findOneAndUpdate(
+          { _id: friend },
+          { $pull: { following: id } },
+          { new: true }
+        )
+        .then((result) => {
+          res.status(201).json({
+            success: true,
+            message: "User removed successfully",
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            success: false,
+            message: "Followimg Server error",
+            err: err,
+          });
+        });
     })
     .catch((err) => {
       res.status(500).json({
         success: false,
-        message: "Server error",
+        message: "Follower Server error",
         err: err,
       });
     });
 };
 
 // getAllFollowById function >>
-const getAllFollowById = (req, res) => {
+const getAllFollowsById = (req, res) => {
   const { id } = req.params;
   usersModel
     .findOne({ _id: id }, "firstName lastName followers following")
     .populate(
       "followers",
+      "-birthDate -phoneNumber -email -password -role -coverImage -photos -myPages -likedPages -followers -following -__v"
+    )
+    .populate(
+      "following",
       "-birthDate -phoneNumber -email -password -role -coverImage -photos -myPages -likedPages -followers -following -__v"
     )
     .then((result) => {
@@ -291,14 +281,54 @@ const getAllFollowById = (req, res) => {
     });
 };
 
+// add/remove liked posts >>
+const updateLikesByUserId = (req, res) => {
+  const { id } = req.params;
+  const { postId } = req.body;
+  const { isLike } = req.body;
 
+  if (isLike) {
+    return usersModel // * add like to user
+      .findOneAndUpdate({ _id: id }, { $push: { postsLike: postId } })
+      .then((result) => {
+        res.status(201).json({
+          success: true,
+          message: "Add successfully",
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          success: false,
+          message: "Server error",
+          err: err,
+        });
+      });
+  }
+
+  usersModel // * remove like from user
+    .findOneAndUpdate({ _id: id }, { $pull: { postsLike: postId } })
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: "Removed successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
 
 module.exports = {
   register,
   login,
   getUserById,
   getUsersByCountry,
-  updateFollowers,
-  updateFollowing,
-  getAllFollowById,
+  addFollow,
+  unFollow,
+  getAllFollowsById,
+  updateLikesByUserId,
 };
