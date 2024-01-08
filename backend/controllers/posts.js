@@ -35,13 +35,15 @@ const getPostsByAuthorId = (req, res) => {
 
   postsModel
     .find({ author: { $in: authorsId } })
+    .populate("author", "firstName lastName profileImage")
     .populate({
-      path: "author",
-      select: "firstName lastName profileImage",
-      /*   populate:[{  // !
-            path: "commenter",
-            select: ""
-        }] */
+      path: "comments",
+      populate: [
+        {
+          path: "commenter",
+          select: "firstName lastName profileImage",
+        },
+      ],
     })
     .sort({ postDate: -1 })
     .then((result) => {
