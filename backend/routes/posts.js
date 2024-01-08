@@ -12,9 +12,11 @@ const {
   getPostLikes
 } = require("../controllers/posts");
 
+const authentication = require("../middleware/authentication")
+
 postsRouter.get("/authors", getPostsByAuthorId);
 postsRouter.get("/:id/likes", getPostLikes);
-postsRouter.post("/createPost", createPost);
+postsRouter.post("/createPost",authentication, createPost);
 postsRouter.put("/:id", updatePostById);
 postsRouter.put("/:postId/likes", updateLikesByPostId);
 postsRouter.delete("/:id", deletePostById);
