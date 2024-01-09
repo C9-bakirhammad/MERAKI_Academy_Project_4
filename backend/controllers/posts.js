@@ -1,9 +1,10 @@
 const postsModel = require("../models/post");
+const usersModel = require("../models/user");
 
 // create new post function >>
 const createPost = (req, res) => {
-  const { author, postText, postDate, postImage } = req.body;
-  //  ! const author = req.token.userId;
+  const { postText, postDate, postImage } = req.body;
+  const author = req.token.userId;
 
   const newPost = new postsModel({
     author,
@@ -29,19 +30,61 @@ const createPost = (req, res) => {
     });
 };
 
-// get posts by authorsId >>
-const getPostsByAuthorId = (req, res) => {
-  const { authorsId } = req.body;
-
+//  get one user posts >>
+const getUserPosts = (req, res) => {
+  const id = req.token.userId;
+  console.log(id);
   postsModel
-    .find({ author: { $in: authorsId } })
+    .find({ author: id })
     .populate("author", "firstName lastName profileImage")
+    .populate("likes", "firstName lastName profileImage -_id")
     .populate({
       path: "comments",
       populate: [
         {
           path: "commenter",
-          select: "firstName lastName profileImage",
+          select: "firstName lastName profileImage -_id",
+        },
+      ],
+    })
+    .sort({ postDate: -1 })
+    .then((result) => {
+      if (result.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "No Posts for the user",
+          result: result,
+        });
+      }
+      res.status(200).json({
+        success: true,
+        message: "Success",
+        posts: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
+// get posts by authorsId (friends) >>
+const getPostsByAuthorsId = (req, res) => {
+  const { authorsId } = req.body;
+  const userId = req.token.userId;
+  postsModel
+    .find({ author: { $in: [...authorsId, userId] } })
+    .populate("author", "firstName lastName profileImage")
+    .populate("likes", "firstName lastName profileImage -_id")
+    .populate({
+      path: "comments",
+      populate: [
+        {
+          path: "commenter",
+          select: "firstName lastName profileImage -_id",
         },
       ],
     })
@@ -50,6 +93,7 @@ const getPostsByAuthorId = (req, res) => {
       res.status(200).json({
         success: true,
         message: "Success",
+        userId: userId,
         posts: result,
       });
     })
@@ -117,38 +161,13 @@ const updatePostById = (req, res) => {
 };
 // todo >> Function of (model.delete.resulte(model.update))post image
 
-// update (add or remove) likes of post >>
-const updateLikesByPostId = (req, res) => {
+// update (add) likes to post and user(liker)>>
+const addPostLikes = (req, res) => {
   const { postId } = req.params;
-  const liker = req.body.liker; // ! edit from token
-  const { isLike } = req.body;
+  const liker = req.token.userId;
 
-  if (isLike) {
-    return postsModel // * add to Likes
-      .findOneAndUpdate({ _id: postId }, { $push: { likes: liker } })
-      .then((result) => {
-        if (!result) {
-          return res.status(404).json({
-            success: false,
-            message: "Post Not Found",
-          });
-        }
-        res.status(200).json({
-          success: true,
-          message: "Like added",
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          success: false,
-          message: "Server Error",
-          err: err,
-        });
-      });
-  }
-
-  postsModel // * remove from Likes
-    .findOneAndUpdate({ _id: postId }, { $pull: { likes: liker } })
+  postsModel // * add Like to the post
+    .findOneAndUpdate({ _id: postId }, { $push: { likes: liker } })
     .then((result) => {
       if (!result) {
         return res.status(404).json({
@@ -156,10 +175,21 @@ const updateLikesByPostId = (req, res) => {
           message: "Post Not Found",
         });
       }
-      res.status(200).json({
-        success: true,
-        message: "Like removed",
-      });
+      usersModel // * add like to the user
+        .findOneAndUpdate({ _id: liker }, { $push: { likedPosts: postId } })
+        .then((result) => {
+          res.status(201).json({
+            success: true,
+            message: "Like Added successfully",
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            success: false,
+            message: "Server error",
+            err: err,
+          });
+        });
     })
     .catch((err) => {
       res.status(500).json({
@@ -170,13 +200,13 @@ const updateLikesByPostId = (req, res) => {
     });
 };
 
-// get all Likes of post >>
-const getPostLikes = (req, res) => {
-  const { id } = req.params;
+// update (remove) likes from post and user(liker)>>
+const removePostLikes = (req, res) => {
+  const { postId } = req.params;
+  const liker = req.token.userId;
 
-  postsModel
-    .findOne({ _id: id }, "likes")
-    .populate("likes", "firstName lastName profileImage -_id")
+  postsModel // * remove Like from the post
+    .findOneAndUpdate({ _id: postId }, { $pull: { likes: liker } })
     .then((result) => {
       if (!result) {
         return res.status(404).json({
@@ -184,11 +214,21 @@ const getPostLikes = (req, res) => {
           message: "Post Not Found",
         });
       }
-      res.status(200).json({
-        success: true,
-        message: "Post Found",
-        post: result,
-      });
+      usersModel // * remove like from user
+        .findOneAndUpdate({ _id: liker }, { $pull: { likedPosts: postId } })
+        .then((result) => {
+          res.status(201).json({
+            success: true,
+            message: "Like Removed successfully",
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            success: false,
+            message: "Server error",
+            err: err,
+          });
+        });
     })
     .catch((err) => {
       res.status(500).json({
@@ -201,9 +241,10 @@ const getPostLikes = (req, res) => {
 
 module.exports = {
   createPost,
-  getPostsByAuthorId,
+  getUserPosts,
+  getPostsByAuthorsId,
   deletePostById,
   updatePostById,
-  updateLikesByPostId,
-  getPostLikes,
+  addPostLikes,
+  removePostLikes,
 };

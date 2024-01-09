@@ -4,8 +4,8 @@ const postsModel = require("../models/post");
 // create new comment and push to post >>
 const createComment = (req, res) => {
   const { id } = req.params;
-  const { commenter, comment } = req.body;
-  //! const commenter = req.token.userId
+  const { comment } = req.body;
+  const commenter = req.token.userId;
   const newComment = new commentsModel({
     commenter,
     comment,

@@ -9,7 +9,10 @@ const {
   updateCommentById,
 } = require("../controllers/comments");
 
-commentsRouter.post("/post/:id", createComment);
+const authentication = require("../middleware/authentication")
+const authorization = require("../middleware/authorization")
+
+commentsRouter.post("/post/:id",authentication,authorization("CREATE_COMMENT"), createComment);
 commentsRouter.delete("/delete/:id", deleteCommentById);
 commentsRouter.put("/update/:id", updateCommentById);
 

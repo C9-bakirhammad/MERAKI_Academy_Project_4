@@ -24,4 +24,25 @@ const createRole = (req, res) => {
     });
 };
 
-module.exports = { createRole };
+// update role >>
+const updateRolePermissions = (req, res) => {
+  const { role } = req.body;
+  const { permissions } = req.body;
+
+  rolesModel
+    .findOneAndUpdate({ role: role }, { $push: { permissions } }, { new: true })
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        role: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        err: err,
+      });
+    });
+};
+
+module.exports = { createRole, updateRolePermissions };

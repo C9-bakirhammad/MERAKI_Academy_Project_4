@@ -13,7 +13,7 @@ const register = (req, res) => {
     phoneNumber,
     email,
     password,
-    postsLike,
+    profileImage,
   } = req.body;
   const newUser = new usersModel({
     firstName,
@@ -24,7 +24,7 @@ const register = (req, res) => {
     phoneNumber,
     email,
     password,
-    postsLike,
+    profileImage,
     role: "65975412ca0cdedfbfa0185c",
   });
   newUser
@@ -116,15 +116,9 @@ const login = (req, res) => {
 const getUserById = (req, res) => {
   const { id } = req.params;
   usersModel
-    .findOne({ _id: id }, "-phoneNumber -password -role")
-    .populate(
-      "followers",
-      "-birthDate -phoneNumber -email -password -role -coverImage -photos -myPages -likedPages -followers -following -__v"
-    )
-    .populate(
-      "following",
-      "-birthDate -phoneNumber -email -password -role -coverImage -photos -myPages -likedPages -followers -following -__v"
-    )
+    .findOne({ _id: id }, "-phoneNumber -password -role -__v")
+    .populate("followers", "firstName lastName country profileImage -_id")
+    .populate("following", "firstName lastName country profileImage -_id")
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -173,20 +167,20 @@ const getUsersByCountry = (req, res) => {
 
 // add following and followers >>
 const addFollow = (req, res) => {
-  const { id } = req.params; //! edit from token
-  const friend = req.body.friend;
+  const id = req.token.userId;
+  const { friend } = req.params;
 
   usersModel // * add to follower
     .findOneAndUpdate(
-      { _id: id },
-      { $push: { followers: friend } },
+      { _id: friend },
+      { $push: { followers: id } },
       { new: true }
     )
     .then((result) => {
       usersModel // * add to following
         .findOneAndUpdate(
-          { _id: friend },
-          { $push: { following: id } },
+          { _id: id },
+          { $push: { following: friend } },
           { new: true }
         )
         .then((result) => {
@@ -214,20 +208,20 @@ const addFollow = (req, res) => {
 
 // remove following and follower>>
 const unFollow = (req, res) => {
-  const { id } = req.params; //! edit from token
-  const friend = req.body.friend;
+  const id = req.token.userId;
+  const { friend } = req.params;
 
   usersModel // * remove from follower
     .findOneAndUpdate(
-      { _id: id },
-      { $pull: { followers: friend } },
+      { _id: friend },
+      { $pull: { followers: id } },
       { new: true }
     )
     .then((result) => {
       usersModel // * remove from following
         .findOneAndUpdate(
-          { _id: friend },
-          { $pull: { following: id } },
+          { _id: id },
+          { $pull: { following: friend } },
           { new: true }
         )
         .then((result) => {
@@ -253,76 +247,6 @@ const unFollow = (req, res) => {
     });
 };
 
-// getAllFollowById function >>
-const getAllFollowsById = (req, res) => {
-  const { id } = req.params;
-  usersModel
-    .findOne({ _id: id }, "firstName lastName followers following")
-    .populate(
-      "followers", //! edit here 
-      "-birthDate -phoneNumber -email -password -role -coverImage -photos -myPages -likedPages -followers -following -__v"
-    )
-    .populate(
-      "following",
-      "-birthDate -phoneNumber -email -password -role -coverImage -photos -myPages -likedPages -followers -following -__v"
-    )
-    .then((result) => {
-      res.status(200).json({
-        success: true,
-        message: "Success",
-        result: result,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: "Server error",
-        err: err,
-      });
-    });
-};
-
-// add/remove liked posts >>
-const updateLikesByUserId = (req, res) => {
-  const { id } = req.params; //! edit from token
-  const { postId } = req.body;
-  const { isLike } = req.body;
-
-  if (isLike) { // ! handle if user not found!
-    return usersModel // * add like to user
-      .findOneAndUpdate({ _id: id }, { $push: { postsLike: postId } })
-      .then((result) => {
-        res.status(201).json({
-          success: true,
-          message: "Add successfully",
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          success: false,
-          message: "Server error",
-          err: err,
-        });
-      });
-  }
-
-  usersModel // * remove like from user
-    .findOneAndUpdate({ _id: id }, { $pull: { postsLike: postId } })
-    .then((result) => {
-      res.status(201).json({
-        success: true,
-        message: "Removed successfully",
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: "Server error",
-        err: err,
-      });
-    });
-};
-
 module.exports = {
   register,
   login,
@@ -330,6 +254,4 @@ module.exports = {
   getUsersByCountry,
   addFollow,
   unFollow,
-  getAllFollowsById,
-  updateLikesByUserId,
 };
