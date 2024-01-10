@@ -1,10 +1,10 @@
 .mainBg {
-  background-color: gainsboro;
+  background-color: #e7e7e7;
   height: 100vh;
 }
 .loginNav {
   background-color: rgb(59, 59, 245);
-  height: 10vh;
+  height: 11vh;
   box-shadow: 1px 1px 5px;
 }
 .header{

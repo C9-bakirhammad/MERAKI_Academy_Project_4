@@ -1,0 +1,24 @@
+.homeBg {
+    background-color: #e7e7e7;
+    height: 100vh;
+  }
+.homeNav{
+    background-color: rgb(59, 59, 245);
+    height: 11vh;
+    box-shadow: 1px 1px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header{
+    color: white;
+    padding: 10px;
+  }
+  .navElem{
+    display: flex;
+    color: white;
+    
+  }
+  .Bg{
+    background-color: rgb(37, 111, 111);
+  }

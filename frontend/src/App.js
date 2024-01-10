@@ -5,12 +5,16 @@ import Login from "./components/login/Login";
 import { Routes, Route, Link } from "react-router-dom";
 import Register from "./components/register/Register";
 import Home from "./components/home/Home";
+import MyProfile from "./components/myProfile/MyProfile";
 export const usersContext = createContext();
 
 function App() {
-  const [token, setToken] = useState("");
-  const [userInfo, setUserInfo] = useState("");
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("UI")) || {}
+  );
 
+  console.log(userInfo);
   return (
     <usersContext.Provider value={{ token, setToken, userInfo, setUserInfo }}>
       <>
@@ -18,7 +22,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Home/>}/>
+          {token && <Route path="/home" element={<Home />} />}
+          {token && <Route path="/profile" element={<MyProfile/>} />}
 
           <Route path="/" element={<Login />} />
           <Route path="*" element={<NotFound />} />

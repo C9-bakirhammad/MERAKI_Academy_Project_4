@@ -25,6 +25,8 @@ const register = (req, res) => {
     email,
     password,
     profileImage,
+    searchFname: firstName.toLowerCase(),
+    searchLname: lastName.toLowerCase(),
     role: "65975412ca0cdedfbfa0185c",
   });
   newUser
