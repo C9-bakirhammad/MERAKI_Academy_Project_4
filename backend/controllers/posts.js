@@ -32,10 +32,9 @@ const createPost = (req, res) => {
 
 //  get one user posts >>
 const getUserPosts = (req, res) => {
-  const id = req.token.userId;
-  console.log(id);
+  const { author } = req.params;
   postsModel
-    .find({ author: id })
+    .find({ author: author })
     .populate("author", "firstName lastName profileImage")
     .populate("likes", "firstName lastName profileImage -_id")
     .populate({

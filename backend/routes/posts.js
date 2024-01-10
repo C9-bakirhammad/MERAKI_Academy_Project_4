@@ -17,7 +17,7 @@ const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 
 postsRouter.get("/authors", authentication, getPostsByAuthorsId);
-postsRouter.get("/author/posts", authentication, getUserPosts);
+postsRouter.get("/:author/posts", getUserPosts);
 postsRouter.post(
   "/createPost",
   authentication,
@@ -43,7 +43,7 @@ module.exports = postsRouter;
 
 // Get >>
 // http://localhost:5000/posts/authors
-// http://localhost:5000/posts/author/posts
+// http://localhost:5000/posts/:author/posts
 
 // Post >>
 // http://localhost:5000/posts/createPost
