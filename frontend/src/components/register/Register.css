@@ -10,24 +10,3 @@
     height: 11vh;
     box-shadow: 1px 1px 5px;
   }
-  .boxSearch{
-outline: none;
-border-color: rgb(191, 191, 191);
-border-style:  solid;
-border-width: 1px;
-border-radius: 6px;
-width: 500px;
-height: 45px;
-  }
-  .button{
-    border: none;
-    width: 170px;
-    height: 50px;
-    color: white;
-    background-color: black;
-    border-radius: 7px;
-  }
-
-.back{
-align-items: end;
-}

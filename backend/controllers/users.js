@@ -19,14 +19,12 @@ const register = (req, res) => {
     firstName,
     middleName,
     lastName,
-    country,
+    country ,
     birthDate,
     phoneNumber,
     email,
     password,
     profileImage,
-    searchFname: firstName.toLowerCase(),
-    searchLname: lastName.toLowerCase(),
     role: "65975412ca0cdedfbfa0185c",
   });
   newUser

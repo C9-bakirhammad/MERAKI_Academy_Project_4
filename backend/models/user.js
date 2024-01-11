@@ -40,7 +40,11 @@ const userSchema = new mongoose.Schema({
 
 // pre Middleware for register .save()
 userSchema.pre("save", async function () {
-  this.email = this.email.toLowerCase();
+  this.email = this.email.split(" ").join("").toLowerCase();
+  this.country = this.country.toLowerCase();
+  this.searchFname = this.firstName.toLowerCase();
+  this.searchLname = this.lastName.toLowerCase();
+
   this.password = await bcrypt.hash(this.password, 11);
 });
 

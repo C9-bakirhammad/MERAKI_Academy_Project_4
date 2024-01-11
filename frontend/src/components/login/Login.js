@@ -30,63 +30,49 @@ const Login = () => {
             <form className="formBg">
               <div className="col-sm-8 mb-2 ms-3">
                 <label className="mt-4">Email</label>
-                {isEmpty && email === "" ? (
-                  <>
-                    <input
-                      type="email"
-                      className="form-control is-invalid"
-                      required
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                      }}
-                    />
-                    <div className="invalid-feedback">Please enter email</div>
-                  </>
-                ) : (
-                  <input
-                    type="email"
-                    className="form-control"
-                    placeholder="example@gmail.com"
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
-                  />
+                <input
+                  type="email"
+                  className={
+                    isEmpty && email === ""
+                      ? "form-control is-invalid"
+                      : "form-control"
+                  }
+                  placeholder="example@gmail.com"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+                {isEmpty && email === "" && (
+                  <div className="invalid-feedback">Please enter email</div>
                 )}
               </div>
 
               <div className="col-sm-8 mb-3 ms-3 me-5">
                 <label>Password</label>
-                {isEmpty && password === "" ? (
-                  <>
-                    <input
-                      type="password"
-                      className="form-control is-invalid"
-                      required
-                      onChange={(e) => {
-                        setPassword(e.target.value);
-                      }}
-                    />
-                    <div className="invalid-feedback">
-                      Please enter password
-                    </div>
-                  </>
-                ) : (
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Password"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  />
+                <input
+                  type="password"
+                  className={
+                    isEmpty && password === ""
+                      ? "form-control is-invalid"
+                      : "form-control"
+                  }
+                  placeholder="Password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+                {isEmpty && password === "" && (
+                  <div className="invalid-feedback">Please enter password</div>
                 )}
               </div>
+
+              {errResp && <div>{errResp}</div>}
 
               <Button
                 className="ms-3"
                 onClick={() => {
                   if (email === "" || password === "") {
-                    return setIsEmpty(true);
+                    return setIsEmpty(!isEmpty);
                   }
                   axios
                     .post("http://localhost:5000/users/login", {
@@ -109,18 +95,17 @@ const Login = () => {
                 }}
               >
                 Login
-              </Button>
-              {errResp && <div>{errResp}</div>}
-            </form>
+              </Button><br/>
 
-            <Button
-              className="btn btn-dark btn-lg mt-3 mb-2"
-              onClick={() => {
-                navigate("/register");
-              }}
-            >
-              Create new account
-            </Button>
+              <Button
+                className="btn btn-dark btn-lg mt-3 mb-2 ms-3"
+                onClick={() => {
+                  navigate("/register");
+                }}
+              >
+                Create new account
+              </Button>
+            </form>
           </div>
         </div>
       </div>
