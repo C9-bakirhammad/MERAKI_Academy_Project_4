@@ -1,15 +1,28 @@
 .homeBg {
-  background-color: #e7e7e7;
+  background-color: #F4F4F4;
   height: 100%;
 }
 .homeNav {
   box-shadow: 1px 1px 5px;
+}
+.userbg{
+  height: 100vh;
 }
 .title {
   font-size: 30px;
   color: white;
   font-weight: bold;
 }
-.Bg {
-  background-color: rgb(205, 235, 235);
+
+/* ======== UserPart ========= */
+.profileImage{
+  border-radius: 50%;
+}
+.publish{
+  background-color: #F4F4F4;
+}
+
+.textarea {
+  resize: none;
+  outline: none;
 }

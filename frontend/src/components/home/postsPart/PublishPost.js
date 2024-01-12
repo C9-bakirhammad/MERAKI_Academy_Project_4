@@ -1,0 +1,78 @@
+import React, { useContext, useState } from "react";
+import { usersContext } from "../../../App";
+import "../Home.css";
+import { Button } from "react-bootstrap";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { postContext } from "./PostsPart";
+
+const PublishPost = () => {
+  const { userInfo, token, setToken } = useContext(usersContext);
+  const { publPost, setPublPost } = useContext(postContext);
+  const [postText, setPostText] = useState("");
+  const navigate = useNavigate();
+
+  return (
+    <div className="row border bg-white rounded">
+      <div>
+        <div className="row" style={{ height: "40px" }}>
+          <div className="col" style={{ textAlign: "center" }}>
+            Publish
+          </div>
+          <div
+            className="col border-bottom"
+            style={{ background: "#F4F4F4" }}
+          ></div>
+        </div>
+      </div>
+
+      <div>
+        <div className="col">
+          <textarea
+            className="textarea border-0 w-100 p-2"
+            rows="5"
+            placeholder={`What you think ${userInfo.firstName}`}
+            onChange={(e) => {
+              setPostText(e.target.value);
+            }}
+          ></textarea>
+        </div>
+      </div>
+
+      <div className="border-top">
+        <div className="mt-2 mb-2">
+          <Button
+            onClick={() => {
+              axios
+                .post(
+                  "http://localhost:5000/posts/createPost",
+                  { postText },
+                  {
+                    headers: { Authorization: `Bearer ${token}` },
+                  }
+                )
+                .then((result) => {
+                  // console.log(result.data);
+                  setPublPost(publPost + 1);
+                })
+                .catch((err) => {
+                  if (
+                    err.response.data.message ===
+                    "The token is invalid or expired"
+                  ) {
+                    localStorage.clear();
+                    setToken("");
+                    navigate("/login");
+                  }
+                });
+            }}
+          >
+            Post
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PublishPost;

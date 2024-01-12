@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
   author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  postText: { type: String, required: true },
+  postText: { type: String},
   postDate: { type:Date, default:Date.now() },
   postImage: [{ type: String }],
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],

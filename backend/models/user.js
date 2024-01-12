@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   profileImage: {
     type: String,
     default:
-      "https://www.kindpng.com/picc/m/451-4517876_default-profile-hd-png-download.png",
+      "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
   },
   coverImage: {
     type: String,

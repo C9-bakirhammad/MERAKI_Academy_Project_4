@@ -1,7 +1,8 @@
 import React from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
-import UserPart from "./UserPart";
+import UserPart from "./userPart/UserPart";
+import PostsPart from "./postsPart/PostsPart";
 
 const Home = () => {
   return (
@@ -55,14 +56,15 @@ const Home = () => {
         </div>
       </nav>
 
-      <div className="Bg container-fluid mt-2">
+      <div className="container-fluid mt-3">
         <div className="row">
-          <div className="col bg-white"> 
+          <div className="col ms-2 me-2 userbg"> 
 <UserPart/>
           </div>
-          <div className="col-6">p
+          <div className="col-6 me-2">
+            <PostsPart/>
           </div>
-          <div className="col">a</div>
+          <div className="col me-2">a</div>
         </div>
       </div>
     </div>
