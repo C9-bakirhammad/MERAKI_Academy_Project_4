@@ -11,8 +11,8 @@ const UserPart = () => {
           <img
             src={userInfo.profileImage}
             alt="profileImage"
-            width={90}
-            height={80}
+            width={75}
+            height={75}
             className="rounded-circle border"
           />
           <span className="h6 ms-2" style={{ fontFamily: "" }}>

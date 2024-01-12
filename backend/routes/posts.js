@@ -16,7 +16,7 @@ const {
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 
-postsRouter.get("/authors", authentication, getPostsByAuthorsId);
+postsRouter.put("/authors", authentication, getPostsByAuthorsId);
 postsRouter.get("/:author/posts", getUserPosts);
 postsRouter.post(
   "/createPost",
@@ -42,13 +42,13 @@ postsRouter.delete("/:id", deletePostById);
 module.exports = postsRouter;
 
 // Get >>
-// http://localhost:5000/posts/authors
 // http://localhost:5000/posts/:author/posts
 
 // Post >>
 // http://localhost:5000/posts/createPost
 
 // Put >>
+// http://localhost:5000/posts/authors
 // http://localhost:5000/posts/:id
 // http://localhost:5000/posts/:postId/likes
 // http://localhost:5000/posts/:postId/likes/remove

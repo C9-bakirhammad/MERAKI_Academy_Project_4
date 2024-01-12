@@ -7,9 +7,8 @@ import PostsPart from "./postsPart/PostsPart";
 const Home = () => {
   return (
     <div className="homeBg">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary homeNav">
+      <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-primary homeNav">
         <div className="container-fluid">
-
           <div className="title">Sky</div>
 
           <button
@@ -58,11 +57,11 @@ const Home = () => {
 
       <div className="container-fluid mt-3">
         <div className="row">
-          <div className="col ms-2 me-2 userbg"> 
-<UserPart/>
+          <div className="col ms-2 me-2 userbg">
+            <UserPart />
           </div>
           <div className="col-6 me-2">
-            <PostsPart/>
+            <PostsPart />
           </div>
           <div className="col me-2">a</div>
         </div>
