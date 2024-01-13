@@ -8,7 +8,7 @@ import { postContext } from "./PostsPart";
 
 const PublishPost = () => {
   const { userInfo, token, setToken } = useContext(usersContext);
-  const { publPost, setPublPost } = useContext(postContext);
+  const { homePosts, setHomePosts } = useContext(postContext);
   const [postText, setPostText] = useState("");
   const navigate = useNavigate();
 
@@ -52,8 +52,7 @@ const PublishPost = () => {
                   }
                 )
                 .then((result) => {
-                  // console.log(result.data);
-                  setPublPost(publPost + 1);
+                  setHomePosts([result.data.post, ...homePosts]);
                 })
                 .catch((err) => {
                   if (

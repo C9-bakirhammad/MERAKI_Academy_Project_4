@@ -19,7 +19,7 @@ const register = (req, res) => {
     firstName,
     middleName,
     lastName,
-    country ,
+    country,
     birthDate,
     phoneNumber,
     email,
@@ -97,6 +97,7 @@ const login = (req, res) => {
             country: result.country,
             following: result.following,
             profileImage: result.profileImage,
+            likedPosts: result.likedPosts,
           },
         });
       } catch (err) {
@@ -119,6 +120,27 @@ const getUserById = (req, res) => {
     .findOne({ _id: id }, "-phoneNumber -password -role -__v")
     .populate("followers", "firstName lastName country profileImage -_id")
     .populate("following", "firstName lastName country profileImage -_id")
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "User is found",
+        user: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
+// get user by Id without populate >>
+const getUser = (req, res) => {
+  const { id } = req.params;
+  usersModel
+    .findOne({ _id: id }, "-phoneNumber -password -role -__v")
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -251,6 +273,7 @@ module.exports = {
   register,
   login,
   getUserById,
+  getUser,
   getUsersByCountry,
   addFollow,
   unFollow,

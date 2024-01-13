@@ -11,6 +11,7 @@ const {
   getUsersByCountry,
   addFollow,
   unFollow,
+  getUser,
 } = require("../controllers/users");
 
 // From middleware folder
@@ -20,6 +21,7 @@ const authorization = require("../middleware/authorization");
 
 usersRouter.get("/", getUsersByCountry);
 usersRouter.get("/:id", getUserById);
+usersRouter.get("/user/:id", getUser);
 usersRouter.post("/login", login);
 usersRouter.post("/register", confirmPassword, register);
 usersRouter.put(
@@ -40,6 +42,7 @@ module.exports = usersRouter;
 // >> Get
 // `http://localhost:5000/users?country=${variable}`
 // http://localhost:5000/users/:id
+// http://localhost:5000/users/user/:id
 
 // >> Post
 // http://localhost:5000/users/login

@@ -3,14 +3,15 @@ const usersModel = require("../models/user");
 
 // create new post function >>
 const createPost = (req, res) => {
-  const { postText, postDate, postImage } = req.body;
+  const { postText, postDate, postImage, likes } = req.body;
   const author = req.token.userId;
 
   const newPost = new postsModel({
     author,
     postText,
     postImage,
-    postDate,
+    postDate: Date.now(),
+    likes,
   });
   newPost
     .save()
@@ -75,7 +76,7 @@ const getPostsByAuthorsId = (req, res) => {
   const authorsId = req.body.authorsId;
   const userId = req.token.userId;
   postsModel
-    .find({ author:{ $in: [...authorsId, userId] } })
+    .find({ author: { $in: [...authorsId, userId] } })
     .populate("author", "firstName lastName profileImage")
     .populate("likes", "firstName lastName profileImage -_id")
     .populate({
@@ -169,7 +170,7 @@ const updatePostById = (req, res) => {
 
 // update (add) likes to post and user(liker)>>
 const addPostLikes = (req, res) => {
-  const { postId } = req.params;
+  const postId = req.params.postId;
   const liker = req.token.userId;
 
   postsModel // * add Like to the post

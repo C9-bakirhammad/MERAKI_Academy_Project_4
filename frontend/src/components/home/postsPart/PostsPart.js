@@ -7,10 +7,12 @@ export const postContext = createContext();
 
 const PostsPart = () => {
   const { userInfo } = useContext(usersContext);
-  const [publPost, setPublPost] = useState(1);
+  const [homePosts, setHomePosts] = useState([]);
+
+  // const [publPost, setPublPost] = useState();
 
   return (
-    <postContext.Provider value={{ publPost, setPublPost }}>
+    <postContext.Provider value={{ homePosts, setHomePosts }}>
       <div>
         <div className="mb-2">
           <PublishPost />
