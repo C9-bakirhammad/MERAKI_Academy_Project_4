@@ -7,39 +7,17 @@ import PostsPart from "./postsPart/PostsPart";
 const Home = () => {
   return (
     <div className="homeBg">
-      <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-primary homeNav">
-        <div className="container-fluid">
-          <div className="title">Sky</div>
+      <nav
+        className="navbar sticky-top navbar-expand-lg navbar-dark homeNav "
+        style={{ backgroundColor: "#1b5acf" }}
+      >
+        <div className="row container-fluid">
+          <div className="col">
+            <div className="title">Sky</div>
+          </div>
 
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/home"
-                >
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link active" to="/profile">
-                  MyProfile
-                </Link>
-              </li>
-            </ul>
-
+          <div className="col">
+            {" "}
             <form className="d-flex">
               <input
                 className="form-control me-2"
@@ -51,6 +29,45 @@ const Home = () => {
                 Search
               </button>
             </form>
+          </div>
+
+          <div className="col" style={{ textAlign: "end", color: "white" }}>
+            <div className="row">
+              <div className="col" style={{ textAlign: "end" }}>
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/home"
+                >
+                  Home
+                </Link>
+              </div>
+
+              <div className="col-4" style={{ textAlign: "start" }}>
+                <Link className="nav-link active" to="/profile">
+                  MyProfile
+                </Link>
+              </div>
+              <div className="col-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="29"
+                  height="29"
+                  fill="currentColor"
+                  className="bi bi-box-arrow-right"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </nav>

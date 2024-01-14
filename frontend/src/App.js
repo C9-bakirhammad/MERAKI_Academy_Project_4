@@ -13,17 +13,34 @@ function App() {
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem("UI")) || {}
   );
+  const [likedPosts, setLikedPosts] = useState(
+    JSON.parse(localStorage.getItem("likedPosts")) || []
+  );
+  const [following, setFollowing] = useState(
+    JSON.parse(localStorage.getItem("following")) || []
+  );
 
   console.log(userInfo);
   return (
-    <usersContext.Provider value={{ token, setToken, userInfo, setUserInfo }}>
+    <usersContext.Provider
+      value={{
+        token,
+        setToken,
+        userInfo,
+        setUserInfo,
+        likedPosts,
+        setLikedPosts,
+        following,
+        setFollowing,
+      }}
+    >
       <>
         {/* <Login /> */}
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {token && <Route path="/home" element={<Home />} />}
-          {token && <Route path="/profile" element={<MyProfile/>} />}
+          {token && <Route path="/profile" element={<MyProfile />} />}
 
           <Route path="/" element={<Login />} />
           <Route path="*" element={<NotFound />} />

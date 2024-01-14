@@ -3,11 +3,11 @@
   height: 100vh;
 }
 .loginNav {
-  background-color: rgb(59, 59, 245);
+  background-color: #1b5acf;
   height: 11vh;
   box-shadow: 1px 1px 5px;
 }
-.header{
+.header {
   color: white;
   padding: 10px;
 }

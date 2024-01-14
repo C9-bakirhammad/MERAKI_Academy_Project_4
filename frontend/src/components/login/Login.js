@@ -4,9 +4,11 @@ import { Button } from "react-bootstrap";
 import { usersContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import UploadImg from "../UploadImg";
 
 const Login = () => {
-  const { setToken, setUserInfo } = useContext(usersContext);
+  const { setToken, setUserInfo, setLikedPosts, setFollowing } =
+    useContext(usersContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -85,8 +87,18 @@ const Login = () => {
                         "UI",
                         JSON.stringify(result.data.userInfo)
                       );
+                      localStorage.setItem(
+                        "following",
+                        JSON.stringify(result.data.userInfo.following)
+                      );
+                      localStorage.setItem(
+                        "likedPosts",
+                        JSON.stringify(result.data.userInfo.likedPosts)
+                      );
                       setToken(result.data.token);
                       setUserInfo(result.data.userInfo);
+                      setFollowing(result.data.userInfo.following);
+                      setLikedPosts(result.data.userInfo.likedPosts);
                       navigate("/home");
                     })
                     .catch((err) => {
@@ -95,7 +107,9 @@ const Login = () => {
                 }}
               >
                 Login
-              </Button><br/>
+              </Button>
+              <br />
+
 
               <Button
                 className="btn btn-dark btn-lg mt-3 mb-2 ms-3"

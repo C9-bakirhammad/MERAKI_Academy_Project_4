@@ -4,10 +4,12 @@ import { postContext } from "./PostsPart";
 import axios from "axios";
 
 const Posts = () => {
-  const { userInfo, token } = useContext(usersContext);
+  const { userInfo, token, likedPosts, setLikedPosts, following } =
+    useContext(usersContext);
   const { homePosts, setHomePosts } = useContext(postContext);
 
- 
+  console.log(likedPosts, "bbbb", homePosts);
+  // console.log(homePosts[0].likes);
 
   useEffect(() => {
     axios
@@ -88,9 +90,7 @@ const Posts = () => {
                 <p>{elem.postText}</p>
               </div>
               <div className="col">
-                {elem.postImage.map((image, i) => {
-                  return <img src={image} key={i} />;
-                })}
+                <img src={elem.postImage} key={i} />
               </div>
               <div className="col" style={{ textAlign: "end" }}>
                 {" "}
@@ -122,6 +122,11 @@ const Posts = () => {
                     width="25"
                     height="25"
                     fill="currentColor"
+                    /*         style={
+                      likedPosts.includes(elem._id)
+                        ? { color: "blue" }
+                        : { color: "black" }
+                    } */
                     className="bi bi-hand-thumbs-up"
                     viewBox="0 0 16 16"
                     onClick={(e) => {
@@ -133,7 +138,19 @@ const Posts = () => {
                           }
                         )
                         .then((result) => {
-
+                          let newHomePosts = homePosts.map((element, i) => {
+                            if (element._id === elem._id) {
+                              element.likes.push({
+                                firstName: userInfo.firstName,
+                                lastName: userInfo.lastName,
+                                profileImage: userInfo.profileImage,
+                                _id: userInfo.userId,
+                              });
+                            }
+                            return element;
+                          });
+                          setHomePosts(newHomePosts);
+                          setLikedPosts(elem.id);
                         })
                         .catch((err) => {
                           console.log(err.response.data);

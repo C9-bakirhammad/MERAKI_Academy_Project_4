@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
   coverImage: {
     type: String,
     default:
-      "https://theoheartist.com/wp-content/uploads/sites/2/2015/01/fbdefault.png",
+      "https://live.staticflickr.com/4014/4655912209_0f7c1b8173_h.jpg",
   },
   photos: [{ type: String }],
   myPages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Page" }],

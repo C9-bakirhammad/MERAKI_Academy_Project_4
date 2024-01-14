@@ -37,13 +37,13 @@ const getUserPosts = (req, res) => {
   postsModel
     .find({ author: author })
     .populate("author", "firstName lastName profileImage")
-    .populate("likes", "firstName lastName profileImage -_id")
+    .populate("likes", "firstName lastName profileImage")
     .populate({
       path: "comments",
       populate: [
         {
           path: "commenter",
-          select: "firstName lastName profileImage -_id",
+          select: "firstName lastName profileImage",
         },
       ],
     })
@@ -78,13 +78,13 @@ const getPostsByAuthorsId = (req, res) => {
   postsModel
     .find({ author: { $in: [...authorsId, userId] } })
     .populate("author", "firstName lastName profileImage")
-    .populate("likes", "firstName lastName profileImage -_id")
+    .populate("likes", "firstName lastName profileImage")
     .populate({
       path: "comments",
       populate: [
         {
           path: "commenter",
-          select: "firstName lastName profileImage -_id",
+          select: "firstName lastName profileImage",
         },
       ],
     })
