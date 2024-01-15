@@ -2,3 +2,15 @@
     background-color: #e7e7e7;
     height: 100%;
   }
+  .font{
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .profileBodbg{
+    height: 100vh;
+  }
+
+ .likeBotton{
+    fill: blue;
+  }
+
+  

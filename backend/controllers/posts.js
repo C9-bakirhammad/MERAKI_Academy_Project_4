@@ -37,7 +37,7 @@ const getUserPosts = (req, res) => {
   postsModel
     .find({ author: author })
     .populate("author", "firstName lastName profileImage")
-    .populate("likes", "firstName lastName profileImage")
+    // .populate("likes", "firstName lastName profileImage")
     .populate({
       path: "comments",
       populate: [
@@ -209,7 +209,7 @@ const addPostLikes = (req, res) => {
 
 // update (remove) likes from post and user(liker)>>
 const removePostLikes = (req, res) => {
-  const { postId } = req.params;
+  const postId = req.params.postId;
   const liker = req.token.userId;
 
   postsModel // * remove Like from the post

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Home.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserPart from "./userPart/UserPart";
 import PostsPart from "./postsPart/PostsPart";
+import { usersContext } from "../../App";
 
 const Home = () => {
+  const { setToken } = useContext(usersContext);
+  const navigate = useNavigate();
+  
   return (
     <div className="homeBg">
       <nav
@@ -50,12 +54,18 @@ const Home = () => {
               </div>
               <div className="col-1">
                 <svg
+                  style={{ cursor: "pointer" }}
                   xmlns="http://www.w3.org/2000/svg"
                   width="29"
                   height="29"
                   fill="currentColor"
                   className="bi bi-box-arrow-right"
                   viewBox="0 0 16 16"
+                  onClick={() => {
+                    localStorage.clear();
+                    setToken("");
+                    navigate("/login");
+                  }}
                 >
                   <path
                     fill-rule="evenodd"

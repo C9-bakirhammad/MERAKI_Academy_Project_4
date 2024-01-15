@@ -25,7 +25,21 @@
 .textarea {
   resize: none;
   outline: none;
+  padding: 10px;
 }
 .likeIcon{
   color: blue;
+}
+.commentInput{
+  outline: none;
+  border-style: groove;
+  border-color: gray;
+  border-radius: 20px;
+  padding-right: 5px;
+  width: 300px;
+
+
+}
+.commentButton{
+  height: 30px;
 }

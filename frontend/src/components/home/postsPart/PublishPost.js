@@ -5,9 +5,11 @@ import { Button } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { postContext } from "./PostsPart";
+import UploadImg from "../../UploadImg";
 
 const PublishPost = () => {
-  const { userInfo, token, setToken } = useContext(usersContext);
+  const { userInfo, token, setToken, postImage, setPostImage } =
+    useContext(usersContext);
   const { homePosts, setHomePosts } = useContext(postContext);
   const [postText, setPostText] = useState("");
   const navigate = useNavigate();
@@ -37,6 +39,7 @@ const PublishPost = () => {
             }}
           ></textarea>
         </div>
+        <div><UploadImg/></div>
       </div>
 
       <div className="border-top">
@@ -46,7 +49,7 @@ const PublishPost = () => {
               axios
                 .post(
                   "http://localhost:5000/posts/createPost",
-                  { postText },
+                  { postText, postImage },
                   {
                     headers: { Authorization: `Bearer ${token}` },
                   }

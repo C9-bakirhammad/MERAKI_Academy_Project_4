@@ -17,12 +17,11 @@ const userSchema = new mongoose.Schema({
   profileImage: {
     type: String,
     default:
-      "https://img.myloview.com/stickers/default-avatar-profile-icon-vector-social-media-user-photo-700-205577532.jpg",
+      "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
   },
   coverImage: {
     type: String,
-    default:
-      "https://live.staticflickr.com/4014/4655912209_0f7c1b8173_h.jpg",
+    default: "https://live.staticflickr.com/4014/4655912209_0f7c1b8173_h.jpg",
   },
   photos: [{ type: String }],
   myPages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Page" }],

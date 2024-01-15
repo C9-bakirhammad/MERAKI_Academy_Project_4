@@ -9,6 +9,7 @@ import MyProfile from "./components/myProfile/MyProfile";
 export const usersContext = createContext();
 
 function App() {
+  const [postImage, setPostImage] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem("UI")) || {}
@@ -32,6 +33,8 @@ function App() {
         setLikedPosts,
         following,
         setFollowing,
+        postImage,
+        setPostImage,
       }}
     >
       <>

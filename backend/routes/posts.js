@@ -31,7 +31,7 @@ postsRouter.get(
   authorization("LIKE"),
   addPostLikes
 );
-postsRouter.put(
+postsRouter.get(
   "/:postId/likes/remove",
   authentication,
   authorization("LIKE"),
@@ -44,6 +44,7 @@ module.exports = postsRouter;
 // Get >>
 // http://localhost:5000/posts/:author/posts
 // http://localhost:5000/posts/:postId/likes
+// http://localhost:5000/posts/:postId/likes/remove
 
 // Post >>
 // http://localhost:5000/posts/createPost
@@ -52,7 +53,7 @@ module.exports = postsRouter;
 // http://localhost:5000/posts/authors
 // http://localhost:5000/posts/:id
 //
-// http://localhost:5000/posts/:postId/likes/remove
+// 
 
 // Delete >>
 // http://localhost:5000/posts/:id
