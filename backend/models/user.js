@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
   },
   coverImage: {
     type: String,
-    default: "https://live.staticflickr.com/4014/4655912209_0f7c1b8173_h.jpg",
+    default: "https://t3.ftcdn.net/jpg/02/17/76/32/360_F_217763215_wHRw0KwM6qLxWpdnGeRzKmsmnkXsUTaH.jpg",
   },
   photos: [{ type: String }],
   myPages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Page" }],

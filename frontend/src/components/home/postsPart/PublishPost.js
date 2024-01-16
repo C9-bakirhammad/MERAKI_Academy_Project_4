@@ -39,7 +39,9 @@ const PublishPost = () => {
             }}
           ></textarea>
         </div>
-        <div><UploadImg/></div>
+        <div>
+          <UploadImg />
+        </div>
       </div>
 
       <div className="border-top">
@@ -55,7 +57,21 @@ const PublishPost = () => {
                   }
                 )
                 .then((result) => {
-                  setHomePosts([result.data.post, ...homePosts]);
+                  const newPost = {
+                    _id: result.data.post._id,
+                    likes: result.data.post.likes,
+                    comments: result.data.post.comments,
+                    postDate: result.data.post.postDate,
+                    postImage: result.data.post.postImage,
+                    postText: result.data.post.postText,
+                    author: {
+                      _id: result.data.post.author,
+                      firstName: userInfo.firstName,
+                      lastName: userInfo.lastName,
+                      profileImage: userInfo.profileImage,
+                    },
+                  };
+                  setHomePosts([newPost, ...homePosts]);
                 })
                 .catch((err) => {
                   if (

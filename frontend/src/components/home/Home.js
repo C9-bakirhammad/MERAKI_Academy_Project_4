@@ -87,7 +87,7 @@ const Home = () => {
           <div className="col ms-2 me-2 userbg">
             <UserPart />
           </div>
-          <div className="col-6 me-2">
+          <div className="col-5 me-2">
             <PostsPart />
           </div>
           <div className="col me-2">a</div>

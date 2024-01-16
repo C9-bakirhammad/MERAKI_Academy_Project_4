@@ -36,7 +36,10 @@ const Posts = () => {
     <div>
       {homePosts.map((elem, i) => {
         return (
-          <div key={elem._id} className="row bg-white mb-2 rounded border">
+          <div
+            key={elem._id}
+            className="row bg-white mb-3 rounded border homePosts"
+          >
             <div>
               <div
                 className="row align-items-center"
@@ -46,20 +49,24 @@ const Posts = () => {
                 <div className="col mt-1 mb-1">
                   <img
                     id={elem.author._id}
-                    src={userInfo.profileImage}
+                    src={elem.author.profileImage}
                     alt="profileImage"
                     width={50}
                     height={50}
                     className="rounded-circle border"
                   />
                   <span
-                    className="ms-2 position-relative"
+                    className="ms-2 position-relative pionter"
                     id={elem.author._id}
-                    style={{ fontFamily: "Cambria", fontSize: "20px" }}
+                    style={{
+                      fontFamily: "sans-serif",
+                      fontSize: "19px",
+                      fontWeight: "bold",
+                    }}
                   >
-                    {userInfo.firstName} {userInfo.lastName}
+                    {elem.author.firstName} {elem.author.lastName}
                     <span
-                      style={{ fontSize: "14px", color: "#999EBA" }}
+                      style={{ fontSize: "13px", color: "#999EBA" }}
                       className="position-absolute top-100 start-0 translate-middle-y mt-1"
                     >
                       {elem.postDate
@@ -71,21 +78,29 @@ const Posts = () => {
                     </span>
                   </span>
                 </div>
-                <div className="col-1">
-                  {/* ====== Save Post Icon ======  */}
-                  <svg
-                    id={elem._id}
-                    // style={{ color: "#0D6EFD" }}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                    className="bi bi-bookmark-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
-                  </svg>
-                </div>
+                {userInfo.userId === elem.author._id ? (
+                  <div className="col-1">
+                    <div style={{ fontWeight: "bold", cursor: "pointer" }}>
+                      ...
+                    </div>
+                  </div>
+                ) : (
+                  <div className="col-1">
+                    {/* ====== Save Post Icon ======  */}
+                    <svg
+                      id={elem._id}
+                      // style={{ color: "#0D6EFD" }}
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="currentColor"
+                      className="bi bi-bookmark-fill pionter"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
+                    </svg>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -93,32 +108,78 @@ const Posts = () => {
             {isComment && postClickId === elem._id ? (
               <div className="mt-2">
                 <div className="col ms-2">
-                  <p>{elem.postText}</p>
+                  <p
+                    style={{
+                      fontFamily: "inherit",
+                      fontSize: "20px",
+                      fontWeight: "450",
+                    }}
+                  >
+                    {elem.postText}
+                  </p>
                 </div>
                 <div>
-                  <div className="col">
+                  <div className="col mb-2 border-top">
                     {elem.comments.map((comment, i) => {
                       return (
-                        <div key={i}>
-                          <div>{/* image Profile */}</div>
-                          <div id={comment.commenter._id}>
-                            {comment.commenter.firstName}{" "}
-                            {comment.commenter.lastName}
+                        <div className="row mt-2" key={i}>
+                          <div
+                            className="col-2 mt-1"
+                            style={{ textAlign: "end" }}
+                            id={comment.commenter._id}
+                          >
+                            {" "}
+                            <img
+                              src={comment.commenter.profileImage}
+                              height={42}
+                              width={42}
+                              style={{ borderRadius: "50%" }}
+                            />
                           </div>
-                          <div>{comment.comment}</div>
+                          <span
+                            className="col-9 mb-1"
+                            style={{
+                              backgroundColor: "#e7e7e7",
+                              borderRadius: "30px",
+                            }}
+                          >
+                            {" "}
+                            <div
+                              className="mt-1"
+                              id={comment.commenter._id}
+                              style={{
+                                fontFamily: "inherit",
+                                fontSize: "17px",
+                                fontWeight: "700",
+                              }}
+                            >
+                              {comment.commenter.firstName}{" "}
+                              {comment.commenter.lastName}
+                            </div>
+                            <div
+                              className="ms-3"
+                              style={{
+                                fontFamily: "cursive",
+                                fontSize: "17px",
+                              }}
+                            >
+                              {comment.comment}
+                            </div>
+                          </span>
                         </div>
                       );
                     })}
                   </div>
                 </div>
                 <div>
-                  <div className="col">
+                  <div className="col mt-3">
                     {" "}
                     <textarea
+                      style={{ borderRadius: "20px" }}
                       type="text"
                       className="textarea w-100"
                       placeholder="Add comment"
-                      rows={3}
+                      rows={1}
                       onChange={(e) => {
                         setComment(e.target.value);
                       }}
@@ -139,10 +200,24 @@ const Posts = () => {
                             { headers: { Authorization: `Bearer ${token}` } }
                           )
                           .then((result) => {
-                            console.log(result.data);
+                            let newComment = homePosts.map((element, i) => {
+                              if (element._id === elem._id) {
+                                element.comments.push({
+                                  comment: comment,
+                                  commenter: {
+                                    firstName: userInfo.firstName,
+                                    lastName: userInfo.lastName,
+                                    profileImage: userInfo.profileImage,
+                                    _id: userInfo.userId,
+                                  },
+                                });
+                              }
+                              return element;
+                            });
+                            setHomePosts(newComment);
                           })
                           .catch((err) => {
-                            console.log(err.response.data);
+                            console.log(err);
                           });
                       }}
                     >
@@ -164,10 +239,18 @@ const Posts = () => {
               <>
                 <div className="mt-2">
                   <div className="col ms-2">
-                    <p>{elem.postText}</p>
+                    <p
+                      style={{
+                        fontFamily: "inherit",
+                        fontSize: "20px",
+                        fontWeight: "450",
+                      }}
+                    >
+                      {elem.postText}
+                    </p>
                   </div>
                   <div className="col">
-                    {elem.postImage !== undefined && (
+                    {elem.postImage !== undefined && elem.postImage !== "" && (
                       <img
                         src={elem.postImage}
                         height={400}
@@ -210,7 +293,7 @@ const Posts = () => {
                         ? { color: "blue" }
                         : { color: "black" }
                     } */
-                        className="bi bi-hand-thumbs-up"
+                        className="bi bi-hand-thumbs-up pionter"
                         viewBox="0 0 16 16"
                         onClick={(e) => {
                           axios
@@ -252,7 +335,7 @@ const Posts = () => {
                         width="25"
                         height="25"
                         fill="currentColor"
-                        className="bi bi-chat-dots"
+                        className="bi bi-chat-dots pionter"
                         viewBox="0 0 16 16"
                         onClick={(e) => {
                           setPostClickId(elem._id);
@@ -264,14 +347,15 @@ const Posts = () => {
                       </svg>
                     </div>
 
-                    <div id={elem._id} className="col">
+                    <div className="col">
                       {/* ======= share Icon ========= */}
                       <svg
+                        id={elem._id}
                         xmlns="http://www.w3.org/2000/svg"
                         width="28"
                         height="28"
                         fill="currentColor"
-                        className="bi bi-reply-all"
+                        className="bi bi-reply-all pionter"
                         viewBox="0 0 16 16"
                       >
                         <path d="M8.098 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.7 8.7 0 0 0-1.921-.306 7 7 0 0 0-.798.008h-.013l-.005.001h-.001L8.8 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L4.114 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028zM9.3 10.386q.102 0 .223.006c.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96z" />

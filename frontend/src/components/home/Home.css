@@ -43,3 +43,7 @@
 .commentButton{
   height: 30px;
 }
+
+.homePosts{
+  box-shadow:  1px 1px 1px rgb(225, 224, 224), -1px -1px 1px rgb(225, 224, 224)
+}
