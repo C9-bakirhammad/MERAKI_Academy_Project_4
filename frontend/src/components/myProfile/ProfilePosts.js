@@ -15,9 +15,9 @@ const ProfilePosts = () => {
   const [comment, setComment] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [postText, setPostText] = useState("");
-  console.log(likedPosts);
+  const [postUpdateId, setPostUpdateId] = useState("");
+
   console.log(profilePosts);
-  console.log(postText);
 
   useEffect(() => {
     axios
@@ -83,6 +83,7 @@ const ProfilePosts = () => {
                     size="sm"
                   >
                     <Dropdown.Item
+                      id={elem._id}
                       onClick={(e) => {
                         axios
                           .delete(`http://localhost:5000/posts/${elem._id}`)
@@ -105,7 +106,9 @@ const ProfilePosts = () => {
                       Delete
                     </Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => {
+                      id={elem._id}
+                      onClick={(e) => {
+                        setPostUpdateId(e.target.id);
                         setIsUpdate(!isUpdate);
                         setIsComment(!isComment);
                       }}
@@ -237,6 +240,7 @@ const ProfilePosts = () => {
                     >
                       Add
                     </Button>
+
                     <Button
                       className="col-2 btn btn-sm btn-outline-dark"
                       variant="btn-outline-dark"
@@ -255,7 +259,7 @@ const ProfilePosts = () => {
               <>
                 <div className="mt-2">
                   <div className="col ms-2">
-                    {isUpdate ? (
+                    {isUpdate && postUpdateId === elem._id ? (
                       <div className="row">
                         <div className="row mt-2">
                           <textarea

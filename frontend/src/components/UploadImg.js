@@ -28,12 +28,12 @@ const UploadImg = () => {
       <div>
         <input
           type="file"
+          className="border"
           onChange={(e) => setImage(e.target.files[0])}
         ></input>
         <button onClick={uploadImage}>Upload</button>
       </div>
       <div>
-        <h1>Uploaded image will be displayed here</h1>
         <img src={postImage} />
       </div>
     </div>

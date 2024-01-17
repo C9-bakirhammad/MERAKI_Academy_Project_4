@@ -12,7 +12,27 @@ const PublishPost = () => {
     useContext(usersContext);
   const { homePosts, setHomePosts } = useContext(postContext);
   const [postText, setPostText] = useState("");
+  const [isUpload, setIsUpload] = useState(true);
   const navigate = useNavigate();
+
+  const [image, setImage] = useState("");
+  console.log(postImage);
+  const uploadImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "szb3g9r3");
+    data.append("cloud_name", "drkox9efz");
+    fetch("https://api.cloudinary.com/v1_1/drkox9efz/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setPostImage(data.url);
+        console.log(data.url);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="row border bg-white rounded">
@@ -39,8 +59,22 @@ const PublishPost = () => {
             }}
           ></textarea>
         </div>
+        <div></div>
+      </div>
+
+      <div>
         <div>
-          <UploadImg />
+          <img src={postImage} height={400} width={600} />
+        </div>
+
+        <div>
+          <button onClick={uploadImage}>Upload</button>
+
+          <input
+            type="file"
+            className="border"
+            onChange={(e) => setImage(e.target.files[0])}
+          ></input>
         </div>
       </div>
 
@@ -85,7 +119,7 @@ const PublishPost = () => {
                 });
             }}
           >
-            Post
+            Post now
           </Button>
         </div>
       </div>

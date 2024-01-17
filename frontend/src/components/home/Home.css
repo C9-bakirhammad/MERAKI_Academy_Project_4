@@ -47,3 +47,23 @@
 .homePosts{
   box-shadow:  1px 1px 1px rgb(225, 224, 224), -1px -1px 1px rgb(225, 224, 224)
 }
+.divSearch {
+  text-align: center;
+}
+.search {
+  outline: none;
+  border: none;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+  padding-left: 10px;
+  height: 41px;
+  width: 60%;
+}
+.searchButton {
+  border: none;
+  background-color: #ebebeb;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 41px;
+  width: 80px;
+}

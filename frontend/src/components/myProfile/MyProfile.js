@@ -43,19 +43,10 @@ const MyProfile = () => {
               <div className="title">Sky</div>
             </div>
 
-            <div className="col">
+            <div className="col divSearch">
               {" "}
-              <form className="d-flex">
-                <input
-                  className="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-                <button className="btn btn-sm btn-light" type="submit">
-                  Search
-                </button>
-              </form>
+              <input className="search" type="search" placeholder=" Search" />
+              <button className="searchButton">Search</button>
             </div>
 
             <div className="col" style={{ textAlign: "end", color: "white" }}>
@@ -151,7 +142,7 @@ const MyProfile = () => {
         </div>
 
         {/* ====== Profile Body ============ */}
-        <UploadImg />
+
         <div className="container mt-3">
           <div className="row" style={{ justifyContent: "center" }}>
             <div className="col-4 ms-2 me-2 bg-dark">L</div>

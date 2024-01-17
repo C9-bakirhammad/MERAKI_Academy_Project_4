@@ -78,13 +78,7 @@ const Posts = () => {
                     </span>
                   </span>
                 </div>
-                {userInfo.userId === elem.author._id ? (
-                  <div className="col-1">
-                    <div style={{ fontWeight: "bold", cursor: "pointer" }}>
-                      ...
-                    </div>
-                  </div>
-                ) : (
+                {userInfo.userId !== elem.author._id && (
                   <div className="col-1">
                     {/* ====== Save Post Icon ======  */}
                     <svg
@@ -192,7 +186,7 @@ const Posts = () => {
                     <Button
                       id={elem._id}
                       className="col-2 me-1"
-                      style={{borderRadius:"20px"}}
+                      style={{ borderRadius: "20px" }}
                       onClick={(e) => {
                         axios
                           .post(
@@ -227,7 +221,7 @@ const Posts = () => {
                     <Button
                       className="col-2"
                       variant="btn btn-outline-dark"
-                      style={{borderRadius:"20px"}}
+                      style={{ borderRadius: "20px" }}
                       onClick={() => {
                         setPostClickId("");
                         setIsComment(!isComment);
