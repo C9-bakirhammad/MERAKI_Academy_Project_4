@@ -5,6 +5,7 @@ import axios from "axios";
 import { usersContext } from "../../App";
 import ProfilePosts from "./ProfilePosts";
 import UploadImg from "../UploadImg";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 export const profileContext = createContext();
 
 const MyProfile = () => {

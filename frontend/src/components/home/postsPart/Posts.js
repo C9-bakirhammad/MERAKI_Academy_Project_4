@@ -46,7 +46,7 @@ const Posts = () => {
                 style={{ height: "60px" }}
               >
                 {/* ========= Top part of Post Form ========= */}
-                <div className="col mt-1 mb-1">
+                <div className="col mt-2 mb-1">
                   <img
                     id={elem.author._id}
                     src={elem.author.profileImage}
@@ -192,6 +192,7 @@ const Posts = () => {
                     <Button
                       id={elem._id}
                       className="col-2 me-1"
+                      style={{borderRadius:"20px"}}
                       onClick={(e) => {
                         axios
                           .post(
@@ -225,6 +226,8 @@ const Posts = () => {
                     </Button>
                     <Button
                       className="col-2"
+                      variant="btn btn-outline-dark"
+                      style={{borderRadius:"20px"}}
                       onClick={() => {
                         setPostClickId("");
                         setIsComment(!isComment);

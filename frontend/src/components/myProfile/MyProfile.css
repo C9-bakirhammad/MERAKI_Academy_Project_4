@@ -1,16 +1,25 @@
 .profileBg {
-    background-color: #e7e7e7;
-    height: 100%;
-  }
-  .font{
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  .profileBodbg{
-    height: 100vh;
-  }
+  background-color: #e7e7e7;
+  height: 100%;
+}
+.font {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.profileBodbg {
+  height: 100vh;
+}
 
- .likeBotton{
-    fill: blue;
-  }
+.likeBotton {
+  fill: blue;
+}
+.supOption:hover {
+  color: #0000ff;
+}
+.updataArea {
+  outline: none;
+  border: none;
+  resize: none;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgb(158, 156, 156), -2px -2px 5px rgb(158, 156, 156);
 
-  
+}

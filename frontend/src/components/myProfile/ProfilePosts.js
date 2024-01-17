@@ -4,6 +4,7 @@ import { usersContext } from "../../App";
 import "../myProfile/MyProfile.css";
 import { profileContext } from "./MyProfile";
 import { Button } from "react-bootstrap";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 
 const ProfilePosts = () => {
   const { userInfo, token } = useContext(usersContext);
@@ -12,9 +13,11 @@ const ProfilePosts = () => {
   const [isComment, setIsComment] = useState(false);
   const [postClickId, setPostClickId] = useState("");
   const [comment, setComment] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [postText, setPostText] = useState("");
   console.log(likedPosts);
   console.log(profilePosts);
-  //   console.log();
+  console.log(postText);
 
   useEffect(() => {
     axios
@@ -38,7 +41,7 @@ const ProfilePosts = () => {
                 style={{ height: "60px" }}
               >
                 {/* ========= Top part of Post Form ========= */}
-                <div className="col mt-1 mb-1">
+                <div className="col mt-2 mb-1">
                   <img
                     id={elem.author._id}
                     src={userInfo.profileImage}
@@ -70,35 +73,46 @@ const ProfilePosts = () => {
                     </span>
                   </span>
                 </div>
-                <div className="col-1">
-                  <div
-                    style={{
-                      fontWeight: "bold",
-                      cursor: "pointer",
-                      position: "relative",
-                    }}
+
+                <div className="col-2" style={{ textAlign: "end" }}>
+                  <DropdownButton
+                    className=""
+                    id={elem._id}
+                    title=""
+                    variant=""
+                    size="sm"
                   >
-                    ...
-                  </div>
-                  <div
-                    style={{
-                      textAlign: "center",
-                      backgroundColor: "grey",
-                      width: "7%",
-                      height: "11%",
-                      position: "absolute",
-                      top: "116%",
-                      right: "16%",
-                      borderRadius: "8px",
-                      color: "white",
-                      fontWeight: "bold",
-                      fontSize: "17px",
-                      boxShadow: "1px 1px 3px grey",
-                    }}
-                  >
-                    <div className="ms-1 me-1 mb-1 mt-1 pionter">Delete</div>
-                    <div className="ms-1 me-1 pionter">Update</div>
-                  </div>
+                    <Dropdown.Item
+                      onClick={(e) => {
+                        axios
+                          .delete(`http://localhost:5000/posts/${elem._id}`)
+                          .then((result) => {
+                            let newDeletePosts = profilePosts.filter(
+                              (element, i) => {
+                                if (element._id === elem._id) {
+                                  return element._id !== elem._id;
+                                }
+                                return element;
+                              }
+                            );
+                            setProfilePosts(newDeletePosts);
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          });
+                      }}
+                    >
+                      Delete
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setIsUpdate(!isUpdate);
+                        setIsComment(!isComment);
+                      }}
+                    >
+                      Update
+                    </Dropdown.Item>
+                  </DropdownButton>
                 </div>
               </div>
             </div>
@@ -191,6 +205,7 @@ const ProfilePosts = () => {
                     <Button
                       id={elem._id}
                       className="col-2 me-1"
+                      style={{ borderRadius: "20px" }}
                       onClick={(e) => {
                         axios
                           .post(
@@ -223,7 +238,9 @@ const ProfilePosts = () => {
                       Add
                     </Button>
                     <Button
-                      className="col-2"
+                      className="col-2 btn btn-sm btn-outline-dark"
+                      variant="btn-outline-dark"
+                      style={{ borderRadius: "20px" }}
                       onClick={() => {
                         setPostClickId("");
                         setIsComment(!isComment);
@@ -238,15 +255,74 @@ const ProfilePosts = () => {
               <>
                 <div className="mt-2">
                   <div className="col ms-2">
-                    <p
-                      style={{
-                        fontFamily: "inherit",
-                        fontSize: "20px",
-                        fontWeight: "450",
-                      }}
-                    >
-                      {elem.postText}
-                    </p>
+                    {isUpdate ? (
+                      <div className="row">
+                        <div className="row mt-2">
+                          <textarea
+                            className="updataArea"
+                            rows={3}
+                            defaultValue={elem.postText}
+                            onChange={(e) => {
+                              setPostText(e.target.value);
+                            }}
+                          ></textarea>
+                        </div>
+                        <div className="row w-50 mb-3 mt-2">
+                          <Button
+                            id={elem._id}
+                            className="col me-2 btn btn-sm btn-outline-primary"
+                            variant="btn-outline-primary"
+                            style={{ borderRadius: "20px" }}
+                            onClick={() => {
+                              axios
+                                .put(
+                                  `http://localhost:5000/posts/${elem._id}`,
+                                  {
+                                    postText,
+                                  }
+                                )
+                                .then((result) => {
+                                  let newUpdate = profilePosts.map(
+                                    (element, i) => {
+                                      if (element._id === elem._id) {
+                                        element.postText = postText;
+                                      }
+                                      return element;
+                                    }
+                                  );
+                                  setProfilePosts(newUpdate);
+                                  setIsUpdate(!isUpdate);
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                });
+                            }}
+                          >
+                            Update
+                          </Button>
+                          <Button
+                            className="col btn btn-sm btn-outline-dark"
+                            variant=""
+                            style={{ borderRadius: "20px" }}
+                            onClick={() => {
+                              setIsUpdate(!isUpdate);
+                            }}
+                          >
+                            Close
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <p
+                        style={{
+                          fontFamily: "inherit",
+                          fontSize: "20px",
+                          fontWeight: "450",
+                        }}
+                      >
+                        {elem.postText}
+                      </p>
+                    )}
                   </div>
                   <div className="col">
                     {elem.postImage !== undefined && elem.postImage !== "" && (
