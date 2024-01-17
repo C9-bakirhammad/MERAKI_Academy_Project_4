@@ -21,13 +21,17 @@ const userSchema = new mongoose.Schema({
   },
   coverImage: {
     type: String,
-    default: "https://t3.ftcdn.net/jpg/02/17/76/32/360_F_217763215_wHRw0KwM6qLxWpdnGeRzKmsmnkXsUTaH.jpg",
+    default:
+      "https://t3.ftcdn.net/jpg/02/17/76/32/360_F_217763215_wHRw0KwM6qLxWpdnGeRzKmsmnkXsUTaH.jpg",
   },
   photos: [{ type: String }],
   myPages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Page" }],
   likedPages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Page" }],
   searchFname: { type: String },
   searchLname: { type: String },
+  study: { type: String },
+  work: { type: String },
+  about: { type: String },
   // savedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   /*  notification: [
     {

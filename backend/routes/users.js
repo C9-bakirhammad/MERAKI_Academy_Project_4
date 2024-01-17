@@ -8,10 +8,12 @@ const {
   register,
   login,
   getUserById,
+  findUsers,
   getUsersByCountry,
   addFollow,
   unFollow,
   getUser,
+  updateUserInfo,
 } = require("../controllers/users");
 
 // From middleware folder
@@ -19,7 +21,8 @@ const { confirmPassword } = require("../middleware/confirmPassword");
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 
-usersRouter.get("/", getUsersByCountry);
+usersRouter.get("/search/:country", getUsersByCountry);
+usersRouter.get("/search/:name", findUsers);
 usersRouter.get("/:id", getUserById);
 usersRouter.get("/user/:id", getUser);
 usersRouter.post("/login", login);
@@ -36,11 +39,13 @@ usersRouter.put(
   authorization("UNFOLLOW"),
   unFollow
 );
+usersRouter.put("/update/info", authentication, updateUserInfo);
 
 module.exports = usersRouter;
 
 // >> Get
-// `http://localhost:5000/users?country=${variable}`
+// http://localhost:5000/users/search/:name
+// http://localhost:5000/users/search/:country
 // http://localhost:5000/users/:id
 // http://localhost:5000/users/user/:id
 
@@ -51,3 +56,4 @@ module.exports = usersRouter;
 // >> Put
 // http://localhost:5000/users/:friend/follow
 // http://localhost:5000/users/:friend/unFollow
+// http://localhost:5000/users/update/info

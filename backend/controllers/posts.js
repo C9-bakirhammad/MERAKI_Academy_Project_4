@@ -73,36 +73,46 @@ const getUserPosts = (req, res) => {
 
 // get posts by authorsId (friends) >>
 const getPostsByAuthorsId = (req, res) => {
-  const authorsId = req.body.authorsId;
   const userId = req.token.userId;
-  postsModel
-    .find({ author: { $in: [...authorsId, userId] } })
-    .populate("author", "firstName lastName profileImage")
-    .populate("likes", "firstName lastName profileImage")
-    .populate({
-      path: "comments",
-      populate: [
-        {
-          path: "commenter",
-          select: "firstName lastName profileImage",
-        },
-      ],
-    })
-    .sort({ postDate: -1 })
+  usersModel
+    .findOne({ _id: userId }, "-phoneNumber -password -role -__v")
     .then((result) => {
-      if (result.length === 0) {
-        return res.status(404).json({
-          success: false,
-          message: "No Posts yet",
-          result: result,
+      postsModel
+        .find({ author: { $in: [...result.following, userId] } })
+        .populate("author", "firstName lastName profileImage")
+        // .populate("likes", "firstName lastName profileImage")
+        .populate({
+          path: "comments",
+          populate: [
+            {
+              path: "commenter",
+              select: "firstName lastName profileImage",
+            },
+          ],
+        })
+        .sort({ postDate: -1 })
+        .then((result) => {
+          if (result.length === 0) {
+            return res.status(404).json({
+              success: false,
+              message: "No Posts yet",
+              result: result,
+            });
+          }
+          res.status(200).json({
+            success: true,
+            message: "Success",
+            userId: userId,
+            posts: result,
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            success: false,
+            message: "Server Error",
+            err: err,
+          });
         });
-      }
-      res.status(200).json({
-        success: true,
-        message: "Success",
-        userId: userId,
-        posts: result,
-      });
     })
     .catch((err) => {
       res.status(500).json({

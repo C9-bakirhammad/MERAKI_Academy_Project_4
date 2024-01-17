@@ -157,14 +157,38 @@ const getUser = (req, res) => {
     });
 };
 
+// find users >>
+const findUsers = (req, res) => {
+  const { name } = req.params;
+  usersModel
+    .find({ searchFname: name }, "firstName lastName profileImage")
+    .then((result) => {
+      if (result.length !== 0) {
+        return res.status(200).json({
+          success: true,
+          message: "Users found",
+          users: result,
+        });
+      }
+      res.status(404).json({
+        success: false,
+        message: "No users found",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
 // getUserByCountry function >>
 const getUsersByCountry = (req, res) => {
-  const { country } = req.query;
+  const { country } = req.params;
   usersModel
-    .find(
-      { country: country },
-      "-phoneNumber -password -email -role -followers -coverImage -photos"
-    )
+    .find({ country: country }, "firstName lastName profileImage country")
     .then((result) => {
       if (result.length !== 0) {
         return res.status(200).json({
@@ -269,12 +293,35 @@ const unFollow = (req, res) => {
     });
 };
 
+// update user Info >>
+const updateUserInfo = (req, res) => {
+  const userId = req.token.userId;
+
+  usersModel
+    .findOneAndUpdate({ _id: userId }, req.body)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "Info updated",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
 module.exports = {
   register,
   login,
   getUserById,
   getUser,
+  findUsers,
   getUsersByCountry,
   addFollow,
   unFollow,
+  updateUserInfo,
 };
