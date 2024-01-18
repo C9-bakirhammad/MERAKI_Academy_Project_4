@@ -14,14 +14,7 @@ function App() {
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem("UI")) || {}
   );
-  const [likedPosts, setLikedPosts] = useState(
-    JSON.parse(localStorage.getItem("likedPosts")) || []
-  );
-  const [following, setFollowing] = useState(
-    JSON.parse(localStorage.getItem("following")) || []
-  );
 
-  console.log(userInfo);
   return (
     <usersContext.Provider
       value={{
@@ -29,10 +22,6 @@ function App() {
         setToken,
         userInfo,
         setUserInfo,
-        likedPosts,
-        setLikedPosts,
-        following,
-        setFollowing,
         postImage,
         setPostImage,
       }}

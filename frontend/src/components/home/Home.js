@@ -1,13 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./Home.css";
 import { Link, useNavigate } from "react-router-dom";
 import UserPart from "./userPart/UserPart";
 import PostsPart from "./postsPart/PostsPart";
 import { usersContext } from "../../App";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import axios from "axios";
 
 const Home = () => {
   const { setToken } = useContext(usersContext);
+  const [searchValue, setSearchValue] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  const [isError, setIsError] = useState("");
   const navigate = useNavigate();
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [search, setSearch] = useState(false);
 
   return (
     <div className="homeBg">
@@ -22,8 +36,30 @@ const Home = () => {
 
           <div className="col divSearch">
             {" "}
-            <input className="search" type="search" placeholder=" Search" />
-            <button className="searchButton">Search</button>
+            <input
+              className="search"
+              placeholder=" Search"
+              onChange={(e) => {
+                setSearchValue(e.target.value.toLowerCase());
+              }}
+            />
+            <button
+              className="searchButton"
+              onClick={(e) => {
+                axios
+                  .get(`http://localhost:5000/users/find/${searchValue}`)
+                  .then((result) => {
+                    setSearchResult(result.data.users);
+                  })
+                  .catch((err) => {
+                    console.log(err.response.data.message);
+                    setIsError(err.response.data.message);
+                  });
+                setSearch(true);
+              }}
+            >
+              Search
+            </button>
           </div>
 
           <div className="col" style={{ textAlign: "end", color: "white" }}>
@@ -52,14 +88,10 @@ const Home = () => {
                   fill="currentColor"
                   className="bi bi-box-arrow-right"
                   viewBox="0 0 16 16"
-                  onClick={() => {
-                    localStorage.clear();
-                    setToken("");
-                    navigate("/login");
-                  }}
+                  onClick={handleShow}
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
                   />
                   <path
@@ -72,7 +104,6 @@ const Home = () => {
           </div>
         </div>
       </nav>
-
       <div className="container-fluid mt-3">
         <div className="row">
           <div className="col ms-2 me-2 userbg">
@@ -84,6 +115,81 @@ const Home = () => {
           <div className="col me-2">a</div>
         </div>
       </div>
+      <>
+        <Modal show={show} onHide={handleClose} animation={false}>
+          <Modal.Header closeButton>
+            <Modal.Title>Sign Out?</Modal.Title>
+          </Modal.Header>
+          {/* <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body> */}
+          <Modal.Footer>
+            <Button variant="btn btn-outline-dark" onClick={handleClose}>
+              Close
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                localStorage.clear();
+                setToken("");
+                navigate("/login");
+              }}
+            >
+              Yes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+      <>
+        <Modal
+          show={search}
+          onHide={() => setSearch(false)}
+          dialogClassName="modal-90w w-50"
+          aria-labelledby="example-custom-modal-styling-title"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="example-custom-modal-styling-title">
+              Search result
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {searchResult.length === 0 ? (
+              <p>{isError}</p>
+            ) : (
+              <div className="col">
+                {searchResult.map((user, i) => {
+                  return (
+                    <div className="mb-2" key={user._id}>
+                      <img
+                        className="me-1"
+                        id={user._id}
+                        style={{ borderRadius: "50%" }}
+                        src={user.profileImage}
+                        width={60}
+                        height={60}
+                      />
+                      <span id={user._id} style={{ cursor: "pointer" }}>
+                        {user.firstName} {user.lastName}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="btn btn-outline-dark"
+              onClick={() => {
+                setSearch(false);
+                setIsError("");
+                setSearchResult([]);
+              }}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+      ;
     </div>
   );
 };

@@ -1,5 +1,5 @@
 .profileBg {
-  background-color: #e7e7e7;
+  background-color: #eeeeee;
   height: 100%;
 }
 .font {
@@ -31,7 +31,7 @@
   border-bottom-left-radius: 20px;
   border-top-left-radius: 20px;
   padding-left: 10px;
-  height: 41px;
+  height: 40px;
   width: 60%;
 }
 .searchButton {
@@ -39,6 +39,64 @@
   background-color: #ebebeb;
   border-bottom-right-radius: 20px;
   border-top-right-radius: 20px;
-  height: 41px;
+  height: 40px;
   width: 80px;
+}
+.followNum {
+  font-size: 30px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  border-bottom: 1px groove rgb(5, 61, 114);
+}
+.followWord {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  color: grey;
+}
+.uploadBottom {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  margin-top: 12px;
+  height: 40px;
+  width: 100px;
+  box-shadow: 1px 1px 5px gray;
+}
+.loader {
+  position: absolute;
+  bottom: 19%;
+  left: 29%;
+  border: 6px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 6px solid rgb(61, 61, 61);
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.font{
+  font-family: Arial, Helvetica, sans-serif;
+
 }

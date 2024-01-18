@@ -5,7 +5,6 @@ import { Button } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { postContext } from "./PostsPart";
-import UploadImg from "../../UploadImg";
 
 const PublishPost = () => {
   const { userInfo, token, setToken, postImage, setPostImage } =
@@ -16,7 +15,7 @@ const PublishPost = () => {
   const navigate = useNavigate();
 
   const [image, setImage] = useState("");
-  console.log(postImage);
+
   const uploadImage = () => {
     const data = new FormData();
     data.append("file", image);
@@ -53,7 +52,7 @@ const PublishPost = () => {
           <textarea
             className="textarea border-0 w-100 p-2"
             rows="5"
-            placeholder={`What you think ${userInfo.firstName}`}
+            placeholder={`What you think about ${userInfo.firstName}`}
             onChange={(e) => {
               setPostText(e.target.value);
             }}

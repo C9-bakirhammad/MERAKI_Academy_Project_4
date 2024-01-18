@@ -8,7 +8,7 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 
 const ProfilePosts = () => {
   const { userInfo, token } = useContext(usersContext);
-  const { likedPosts, setLikedPosts } = useContext(profileContext);
+  const { likedPosts, setLikedPosts, profileUser } = useContext(profileContext);
   const [profilePosts, setProfilePosts] = useState([]);
   const [isComment, setIsComment] = useState(false);
   const [postClickId, setPostClickId] = useState("");
@@ -16,8 +16,6 @@ const ProfilePosts = () => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [postText, setPostText] = useState("");
   const [postUpdateId, setPostUpdateId] = useState("");
-
-  console.log(profilePosts);
 
   useEffect(() => {
     axios
@@ -44,7 +42,7 @@ const ProfilePosts = () => {
                 <div className="col mt-2 mb-1">
                   <img
                     id={elem.author._id}
-                    src={userInfo.profileImage}
+                    src={profileUser.profileImage}
                     alt="profileImage"
                     width={50}
                     height={50}
@@ -59,10 +57,10 @@ const ProfilePosts = () => {
                       fontWeight: "bold",
                     }}
                   >
-                    {userInfo.firstName} {userInfo.lastName}
+                    {profileUser.firstName} {profileUser.lastName}
                     <span
                       style={{ fontSize: "13px", color: "#999EBA" }}
-                      className="position-absolute top-100 start-0 translate-middle-y mt-1"
+                      className="position-absolute top-100 start-0 translate-middle-y mt-2"
                     >
                       {elem.postDate
                         .split("T")

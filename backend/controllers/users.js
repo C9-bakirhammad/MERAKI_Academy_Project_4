@@ -159,7 +159,7 @@ const getUser = (req, res) => {
 
 // find users >>
 const findUsers = (req, res) => {
-  const { name } = req.params;
+  const  {name}  = req.params;
   usersModel
     .find({ searchFname: name }, "firstName lastName profileImage")
     .then((result) => {

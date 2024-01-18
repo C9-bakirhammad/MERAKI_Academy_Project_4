@@ -22,7 +22,7 @@ const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 
 usersRouter.get("/search/:country", getUsersByCountry);
-usersRouter.get("/search/:name", findUsers);
+usersRouter.get("/find/:name", findUsers);
 usersRouter.get("/:id", getUserById);
 usersRouter.get("/user/:id", getUser);
 usersRouter.post("/login", login);
@@ -44,7 +44,7 @@ usersRouter.put("/update/info", authentication, updateUserInfo);
 module.exports = usersRouter;
 
 // >> Get
-// http://localhost:5000/users/search/:name
+// http://localhost:5000/users/find/:name
 // http://localhost:5000/users/search/:country
 // http://localhost:5000/users/:id
 // http://localhost:5000/users/user/:id

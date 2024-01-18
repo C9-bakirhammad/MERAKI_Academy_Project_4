@@ -5,22 +5,36 @@ import axios from "axios";
 import { usersContext } from "../../App";
 import ProfilePosts from "./ProfilePosts";
 import UploadImg from "../UploadImg";
-import { Dropdown, DropdownButton } from "react-bootstrap";
+import { Dropdown, DropdownButton, Button, Modal } from "react-bootstrap";
+import MyInfos from "./MyInfos";
 export const profileContext = createContext();
 
 const MyProfile = () => {
   const [profileUser, setProfileUser] = useState({});
-  const { userInfo, setToken } = useContext(usersContext);
+  const { userInfo, token, setToken } = useContext(usersContext);
   const [following, setFollowing] = useState([]);
   const [follower, setFollower] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
+  const [followCkick, setFollowCkick] = useState("");
+  const [updatePhoto, setUpdatePhoto] = useState("");
+  const [updateProfileClick, setUpdateProfileClick] = useState("");
+  const [isUpload, setIsUpload] = useState(false);
+  const [selectPhoto, setSelectPhoto] = useState("");
+  const [isLoader, setIsLoader] = useState(true);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [search, setSearch] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get(`http://localhost:5000/users/${userInfo.userId}`)
       .then((result) => {
-        console.log(result.data.user);
+        // console.log(result.data.user);
         setProfileUser(result.data.user);
         setFollower(result.data.user.followers);
         setFollowing(result.data.user.following);
@@ -31,8 +45,26 @@ const MyProfile = () => {
       });
   }, []);
 
+  const [image, setImage] = useState("");
+  const uploadImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "szb3g9r3");
+    data.append("cloud_name", "drkox9efz");
+    fetch("https://api.cloudinary.com/v1_1/drkox9efz/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setUpdatePhoto(data.url);
+        console.log(data.url);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <profileContext.Provider value={{ likedPosts, setLikedPosts }}>
+    <profileContext.Provider value={{ profileUser, likedPosts, setLikedPosts }}>
       <div className="profileBg">
         <nav
           className="navbar sticky-top navbar-expand-lg navbar-dark homeNav "
@@ -75,11 +107,7 @@ const MyProfile = () => {
                     fill="currentColor"
                     className="bi bi-box-arrow-right"
                     viewBox="0 0 16 16"
-                    onClick={() => {
-                      localStorage.clear();
-                      setToken("");
-                      navigate("/login");
-                    }}
+                    onClick={handleShow}
                   >
                     <path
                       fillRule="evenodd"
@@ -96,7 +124,7 @@ const MyProfile = () => {
           </div>
         </nav>
         {/* ========== Profile Heading ========= */}
-        <div className="">
+        <div className="container">
           <div style={{ position: "relative" }}>
             {" "}
             <img
@@ -126,31 +154,266 @@ const MyProfile = () => {
               {profileUser.firstName} {profileUser.lastName}
             </div>
           </div>
+        </div>
 
-          <div className="row mt-3">
-            <div className="col-2"></div>
-            <div className="col-1 font" style={{ textAlign: "center" }}>
-              <div>{follower.length}</div>
-              <div>Followers</div>
-            </div>
+        <div className="row mt-3 col-sm">
+          <div className="col-2"></div>
 
-            <div className="col-1 font" style={{ textAlign: "center" }}>
-              <div>{following.length}</div>
-              <div>Followings</div>
+          <div
+            className="col-1 rounded-start border-top border-bottom border-end"
+            style={{ textAlign: "center", backgroundColor: "#dddddd" }}
+          >
+            <div className="followNum">{follower.length}</div>
+            <div
+              className="followWord"
+              onClick={() => {
+                setSearch(true);
+                setFollowCkick("Followers");
+                setUpdateProfileClick("Follow");
+              }}
+            >
+              Followers
             </div>
+          </div>
+
+          <div
+            className="col-1 rounded-end  border-top border-bottom border-end"
+            style={{ textAlign: "center", backgroundColor: "#dddddd" }}
+          >
+            <div className="followNum">{following.length}</div>
+            <div
+              className="followWord"
+              onClick={() => {
+                setSearch(true);
+                setFollowCkick("Following");
+                setUpdateProfileClick("Follow");
+              }}
+            >
+              Following
+            </div>
+          </div>
+          <div className="col-6" style={{ textAlign: "end" }}>
+            <DropdownButton title="Edit Profile" variant="">
+              <Dropdown.Item
+                onClick={() => {
+                  setSearch(true);
+                  setIsUpload(false);
+                  setUpdateProfileClick("Update");
+                  setSelectPhoto("Profile");
+                }}
+              >
+                Change profile photo
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
+                  setSearch(true);
+                  setIsUpload(false);
+                  setUpdateProfileClick("Update");
+                  setSelectPhoto("Cover");
+                }}
+              >
+                Change cover photo
+              </Dropdown.Item>
+            </DropdownButton>
           </div>
         </div>
 
         {/* ====== Profile Body ============ */}
 
-        <div className="container mt-3">
+        <div className="container mt-4">
           <div className="row" style={{ justifyContent: "center" }}>
-            <div className="col-4 ms-2 me-2 bg-dark">L</div>
-            <div className="col-6 me-2">
+            <div className="col-4 ms-2 me-2">
+              <MyInfos />
+            </div>
+            <div className="col-6 ms-2 me-2">
               <ProfilePosts />{" "}
             </div>
           </div>
         </div>
+
+        {/* ============== check sign out ================*/}
+        <>
+          <Modal show={show} onHide={handleClose} animation={false}>
+            <Modal.Header closeButton>
+              <Modal.Title>Sign Out?</Modal.Title>
+            </Modal.Header>
+            {/* <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body> */}
+            <Modal.Footer>
+              <Button variant="btn btn-outline-dark" onClick={handleClose}>
+                Close
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  localStorage.clear();
+                  setToken("");
+                  navigate("/login");
+                }}
+              >
+                Yes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
+
+        {/*=================== Following and followers VS Edit Ptofile ========================*/}
+        <>
+          <Modal
+            show={search}
+            onHide={() => {
+              setSearch(false);
+              setIsLoader(!isLoader);
+            }}
+            dialogClassName="modal-90w w-50"
+            aria-labelledby="example-custom-modal-styling-title"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="example-custom-modal-styling-title">
+                {updateProfileClick === "Update"
+                  ? "Upload"
+                  : followCkick === "Following"
+                  ? "My Following"
+                  : "My Followers"}
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {updateProfileClick === "Update" ? (
+                <>
+                  {" "}
+                  {/* >> if user click on Edit Profile >>> */}
+                  <div>
+                    <div>
+                      <input
+                        type="file"
+                        className="border"
+                        onChange={(e) => {
+                          setImage(e.target.files[0]);
+                          setIsUpload(true);
+                        }}
+                      ></input>
+                      <br />
+                      {isUpload && (
+                        <button
+                          className="uploadBottom mb-2"
+                          onClick={() => {
+                            uploadImage();
+                            setIsLoader(!isLoader);
+                          }}
+                        >
+                          Upload
+                        </button>
+                      )}
+
+                      {/* ===== Request of update photos ===== */}
+                      {isLoader ? (
+                        <></>
+                      ) : updatePhoto ? (
+                        <Modal.Footer>
+                          <Button
+                            onClick={() => {
+                              {
+                                selectPhoto === "Profile"
+                                  ? axios /*  if select Change profile photo */
+                                      .put(
+                                        "http://localhost:5000/users/update/info",
+                                        { profileImage: updatePhoto },
+                                        {
+                                          headers: {
+                                            Authorization: `Bearer ${token}`,
+                                          },
+                                        }
+                                      )
+                                      .then((result) => {
+                                        profileUser.profileImage = updatePhoto;
+                                        setSearch(false);
+                                        setIsUpload(false);
+                                        setIsLoader(!isLoader);
+                                        setUpdatePhoto("");
+                                      })
+                                      .catch((err) => {
+                                        console.log(err.response.data);
+                                      })
+                                  : axios /* if select Change cover photo */
+                                      .put(
+                                        "http://localhost:5000/users/update/info",
+                                        { coverImage: updatePhoto },
+                                        {
+                                          headers: {
+                                            Authorization: `Bearer ${token}`,
+                                          },
+                                        }
+                                      )
+                                      .then((result) => {
+                                        profileUser.coverImage = updatePhoto;
+                                        setSearch(false);
+                                        setIsUpload(false);
+                                        setIsLoader(!isLoader);
+                                        setUpdatePhoto("");
+                                      })
+                                      .catch((err) => {
+                                        console.log(err.response.data);
+                                      });
+                              }
+                            }}
+                          >
+                            Done
+                          </Button>
+                        </Modal.Footer>
+                      ) : (
+                        <div className="loader"></div>
+                      )}
+                    </div>
+                  </div>
+                </>
+              ) : followCkick === "Following" ? (
+                <div className="col">
+                  {" "}
+                  {/* >> if user click on following >>>> */}
+                  {following.map((user, i) => {
+                    return (
+                      <div className="mb-2" key={user._id}>
+                        <img
+                          className="me-2"
+                          id={user._id}
+                          style={{ borderRadius: "50%" }}
+                          src={user.profileImage}
+                          width={60}
+                          height={60}
+                        />
+                        <span id={user._id} style={{ cursor: "pointer" }}>
+                          {user.firstName} {user.lastName}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="col">
+                  {" "}
+                  {/* >> if user click on followers >>>>*/}
+                  {follower.map((user, i) => {
+                    return (
+                      <div className="mb-2" key={user._id}>
+                        <img
+                          className="me-2"
+                          id={user._id}
+                          style={{ borderRadius: "50%" }}
+                          src={user.profileImage}
+                          width={60}
+                          height={60}
+                        />
+                        <span id={user._id} style={{ cursor: "pointer" }}>
+                          {user.firstName} {user.lastName}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </Modal.Body>
+          </Modal>
+        </>
+        {/* ============================================================== */}
       </div>
     </profileContext.Provider>
   );
