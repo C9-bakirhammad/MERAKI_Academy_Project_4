@@ -27,13 +27,13 @@ usersRouter.get("/:id", getUserById);
 usersRouter.get("/user/:id", getUser);
 usersRouter.post("/login", login);
 usersRouter.post("/register", confirmPassword, register);
-usersRouter.put(
-  "/:friend/follow",
+usersRouter.get(
+  "/follow/:friend",
   authentication,
   authorization("FOLLOW"),
   addFollow
 );
-usersRouter.put(
+usersRouter.get(
   "/:friend/unFollow",
   authentication,
   authorization("UNFOLLOW"),
@@ -48,12 +48,13 @@ module.exports = usersRouter;
 // http://localhost:5000/users/search/:country
 // http://localhost:5000/users/:id
 // http://localhost:5000/users/user/:id
+// http://localhost:5000/users/follow/:friend
+// http://localhost:5000/users/:friend/unFollow
 
 // >> Post
 // http://localhost:5000/users/login
 // http://localhost:5000/users/register
 
 // >> Put
-// http://localhost:5000/users/:friend/follow
-// http://localhost:5000/users/:friend/unFollow
+
 // http://localhost:5000/users/update/info

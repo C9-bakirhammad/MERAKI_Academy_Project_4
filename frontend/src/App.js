@@ -6,10 +6,10 @@ import { Routes, Route, Link } from "react-router-dom";
 import Register from "./components/register/Register";
 import Home from "./components/home/Home";
 import MyProfile from "./components/myProfile/MyProfile";
+import FriendProfile from "./components/friend/FriendProfile";
 export const usersContext = createContext();
 
 function App() {
-  const [postImage, setPostImage] = useState("");
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem("UI")) || {}
@@ -22,8 +22,6 @@ function App() {
         setToken,
         userInfo,
         setUserInfo,
-        postImage,
-        setPostImage,
       }}
     >
       <>
@@ -33,6 +31,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           {token && <Route path="/home" element={<Home />} />}
           {token && <Route path="/profile" element={<MyProfile />} />}
+          {token && <Route path="/friend/:id" element={<FriendProfile />} />} 
 
           <Route path="/" element={<Login />} />
           <Route path="*" element={<NotFound />} />

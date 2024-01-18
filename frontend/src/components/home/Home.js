@@ -11,7 +11,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import axios from "axios";
 
 const Home = () => {
-  const { setToken } = useContext(usersContext);
+  const { setToken, friendId, setFriendId } = useContext(usersContext);
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [isError, setIsError] = useState("");
@@ -44,6 +44,7 @@ const Home = () => {
               }}
             />
             <button
+              type="submit"
               className="searchButton"
               onClick={(e) => {
                 axios
@@ -104,15 +105,14 @@ const Home = () => {
           </div>
         </div>
       </nav>
-      <div className="container-fluid mt-3">
-        <div className="row">
-          <div className="col ms-2 me-2 userbg">
+      <div className="container mt-4">
+        <div className="row" style={{ justifyContent: "center" }}>
+          <div className="col-4 me-3 userbg">
             <UserPart />
           </div>
-          <div className="col-5 me-2">
+          <div className="col-6">
             <PostsPart />
           </div>
-          <div className="col me-2">a</div>
         </div>
       </div>
       <>
@@ -166,7 +166,14 @@ const Home = () => {
                         width={60}
                         height={60}
                       />
-                      <span id={user._id} style={{ cursor: "pointer" }}>
+                      <span
+                        id={user._id}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          navigate(`/friend/${user._id}`);
+                          /* `${user._id}` */
+                        }}
+                      >
                         {user.firstName} {user.lastName}
                       </span>
                     </div>

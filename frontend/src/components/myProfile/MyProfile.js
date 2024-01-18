@@ -11,6 +11,7 @@ export const profileContext = createContext();
 
 const MyProfile = () => {
   const [profileUser, setProfileUser] = useState({});
+  const [profilePosts, setProfilePosts] = useState([]);
   const { userInfo, token, setToken } = useContext(usersContext);
   const [following, setFollowing] = useState([]);
   const [follower, setFollower] = useState([]);
@@ -64,7 +65,16 @@ const MyProfile = () => {
   };
 
   return (
-    <profileContext.Provider value={{ profileUser, likedPosts, setLikedPosts }}>
+    <profileContext.Provider
+      value={{
+        profilePosts,
+        setProfilePosts,
+        profileUser,
+        likedPosts,
+        setLikedPosts,
+        following,
+      }}
+    >
       <div className="profileBg">
         <nav
           className="navbar sticky-top navbar-expand-lg navbar-dark homeNav "
@@ -124,7 +134,7 @@ const MyProfile = () => {
           </div>
         </nav>
         {/* ========== Profile Heading ========= */}
-        <div className="container">
+        <div className="container" style={{ textAlign: "center" }}>
           <div style={{ position: "relative" }}>
             {" "}
             <img
@@ -132,7 +142,7 @@ const MyProfile = () => {
               style={{ height: "65vh", width: "100%" }}
             />
           </div>
-          <div style={{ position: "absolute", top: "66%", left: "47%" }}>
+          <div style={{ position: "absolute", top: "66%", left: "45%" }}>
             <img
               src={profileUser.profileImage}
               className="mb-2"
@@ -156,12 +166,12 @@ const MyProfile = () => {
           </div>
         </div>
 
-        <div className="row mt-3 col-sm">
+        <div className="row w-100 mt-3 col-sm">
           <div className="col-2"></div>
 
           <div
             className="col-1 rounded-start border-top border-bottom border-end"
-            style={{ textAlign: "center", backgroundColor: "#dddddd" }}
+            style={{ textAlign: "center" }}
           >
             <div className="followNum">{follower.length}</div>
             <div
@@ -177,8 +187,8 @@ const MyProfile = () => {
           </div>
 
           <div
-            className="col-1 rounded-end  border-top border-bottom border-end"
-            style={{ textAlign: "center", backgroundColor: "#dddddd" }}
+            className="col-1 rounded-end border-top border-bottom border-end"
+            style={{ textAlign: "center" }}
           >
             <div className="followNum">{following.length}</div>
             <div
@@ -220,7 +230,7 @@ const MyProfile = () => {
 
         {/* ====== Profile Body ============ */}
 
-        <div className="container mt-4">
+        <div className="container mt-5">
           <div className="row" style={{ justifyContent: "center" }}>
             <div className="col-4 ms-2 me-2">
               <MyInfos />
@@ -262,7 +272,7 @@ const MyProfile = () => {
             show={search}
             onHide={() => {
               setSearch(false);
-              setIsLoader(!isLoader);
+              setIsLoader(true);
             }}
             dialogClassName="modal-90w w-50"
             aria-labelledby="example-custom-modal-styling-title"
@@ -297,7 +307,7 @@ const MyProfile = () => {
                           className="uploadBottom mb-2"
                           onClick={() => {
                             uploadImage();
-                            setIsLoader(!isLoader);
+                            setIsLoader(false);
                           }}
                         >
                           Upload
