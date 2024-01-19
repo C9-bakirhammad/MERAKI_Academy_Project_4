@@ -167,12 +167,21 @@ const Posts = () => {
                               >
                                 {" "}
                                 <div
-                                  className="mt-1"
+                                  className="mt-1 pionter"
                                   id={comment.commenter._id}
                                   style={{
                                     fontFamily: "inherit",
                                     fontSize: "17px",
                                     fontWeight: "700",
+                                  }}
+                                  onClick={() => {
+                                    {
+                                      comment.commenter._id === userInfo.userId
+                                        ? navigate("/profile")
+                                        : navigate(
+                                            `/friend/${comment.commenter._id}`
+                                          );
+                                    }
                                   }}
                                 >
                                   {comment.commenter.firstName}{" "}
@@ -310,7 +319,7 @@ const Posts = () => {
                       >
                         <div className="col">
                           {/* ======= Like Icon ========= */}
-                         {/*  <FaStar style={{ color: "yellow" }} /> */}
+                          {/*  <FaStar style={{ color: "yellow" }} /> */}
                           <svg
                             id={elem._id}
                             xmlns="http://www.w3.org/2000/svg"

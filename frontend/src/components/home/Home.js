@@ -11,7 +11,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import axios from "axios";
 
 const Home = () => {
-  const { setToken, friendId, setFriendId } = useContext(usersContext);
+  const { userInfo,setToken, friendId, setFriendId } = useContext(usersContext);
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [isError, setIsError] = useState("");
@@ -170,8 +170,11 @@ const Home = () => {
                         id={user._id}
                         style={{ cursor: "pointer" }}
                         onClick={() => {
-                          navigate(`/friend/${user._id}`);
-                          /* `${user._id}` */
+                          {
+                            user._id === userInfo.userId
+                              ? navigate("/profile")
+                              : navigate(`/friend/${user._id}`);
+                          }
                         }}
                       >
                         {user.firstName} {user.lastName}
