@@ -412,7 +412,10 @@ const MyProfile = () => {
                           width={60}
                           height={60}
                         />
-                        <span id={user._id} style={{ cursor: "pointer" }}>
+                        <span
+                          id={user._id}
+                          style={{ cursor: "pointer" }}
+                        >
                           {user.firstName} {user.lastName}
                         </span>
                       </div>
