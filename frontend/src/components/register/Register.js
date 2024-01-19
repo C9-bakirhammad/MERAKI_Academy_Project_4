@@ -16,6 +16,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errResp, setErrResp] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
+  console.log(birthDate);
 
   return (
     <div className="RegMainBg">
@@ -74,9 +75,9 @@ const Register = () => {
                     ? "form-control is-invalid"
                     : "form-control"
                 }
-                placeholder="dd-mm-yyyy"
+                placeholder="dd/mm/yyyy"
                 onChange={(e) => {
-                  setBirthDate(e.target.value);
+                  setBirthDate(e.target.value.split("/").reverse().join("-"));
                 }}
               />
               {isEmpty && birthDate === "" && (
