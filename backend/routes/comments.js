@@ -1,7 +1,7 @@
 const express = require("express");
 const commentsRouter = express.Router();
 
-// commentsRouter on http://localhost:5000/comments
+// commentsRouter on https://sky-hcfs.onrender.com/comments
 
 const {
   createComment,
@@ -19,10 +19,10 @@ commentsRouter.put("/update/:id", updateCommentById);
 module.exports = commentsRouter;
 
 //Post >>
-// http://localhost:5000/comments/:id/post
+// https://sky-hcfs.onrender.com/comments/:id/post
 
 // Delete >>
-// http://localhost:5000/comments/delete/:id
+// https://sky-hcfs.onrender.com/comments/delete/:id
 
 // Put >>
-// http://localhost:5000/comments/update/:id
+// https://sky-hcfs.onrender.com/comments/update/:id

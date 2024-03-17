@@ -33,7 +33,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/users/${userInfo.userId}`)
+      .get(`https://sky-hcfs.onrender.com/users/${userInfo.userId}`)
       .then((result) => {
         // console.log(result.data.user);
         setProfileUser(result.data.user);
@@ -325,7 +325,7 @@ const MyProfile = () => {
                                 selectPhoto === "Profile"
                                   ? axios /*  if select Change profile photo */
                                       .put(
-                                        "http://localhost:5000/users/update/info",
+                                        "https://sky-hcfs.onrender.com/users/update/info",
                                         { profileImage: updatePhoto },
                                         {
                                           headers: {
@@ -345,7 +345,7 @@ const MyProfile = () => {
                                       })
                                   : axios /* if select Change cover photo */
                                       .put(
-                                        "http://localhost:5000/users/update/info",
+                                        "https://sky-hcfs.onrender.com/users/update/info",
                                         { coverImage: updatePhoto },
                                         {
                                           headers: {

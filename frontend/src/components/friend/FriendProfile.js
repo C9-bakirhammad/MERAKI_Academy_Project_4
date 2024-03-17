@@ -23,7 +23,7 @@ const FriendProfile = () => {
 
   useEffect(() => {
     axios //For user
-      .get(`http://localhost:5000/users/user/${userInfo.userId}`)
+      .get(`https://sky-hcfs.onrender.com/users/user/${userInfo.userId}`)
       .then((result) => {
         setLikedPosts(result.data.user.likedPosts);
       })
@@ -32,7 +32,7 @@ const FriendProfile = () => {
       });
 
     axios // for friend
-      .get(`http://localhost:5000/users/user/${id}`)
+      .get(`https://sky-hcfs.onrender.com/users/user/${id}`)
       .then((result) => {
         setFriendInfo(result.data.user);
         setFollower(result.data.user.followers);
@@ -134,7 +134,7 @@ const FriendProfile = () => {
                   className="btn btn-dark"
                   onClick={() => {
                     axios
-                      .get(`http://localhost:5000/users/${id}/unFollow`, {
+                      .get(`https://sky-hcfs.onrender.com/users/${id}/unFollow`, {
                         headers: { Authorization: `Bearer ${token}` },
                       })
                       .then((result) => {
@@ -158,7 +158,7 @@ const FriendProfile = () => {
                   style={{ width: "110px" }}
                   onClick={() => {
                     axios
-                      .get(`http://localhost:5000/users/follow/${id}`, {
+                      .get(`https://sky-hcfs.onrender.com/users/follow/${id}`, {
                         headers: { Authorization: `Bearer ${token}` },
                       })
                       .then((result) => {

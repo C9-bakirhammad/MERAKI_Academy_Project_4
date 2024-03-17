@@ -1,7 +1,7 @@
 const express = require("express");
 const usersRouter = express.Router();
 
-//usersRouter on http://localhost:5000/users
+//usersRouter on https://sky-hcfs.onrender.com/users
 
 // From controllers folder
 const {
@@ -44,17 +44,17 @@ usersRouter.put("/update/info", authentication, updateUserInfo);
 module.exports = usersRouter;
 
 // >> Get
-// http://localhost:5000/users/find/:name
-// http://localhost:5000/users/search/:country
-// http://localhost:5000/users/:id
-// http://localhost:5000/users/user/:id
-// http://localhost:5000/users/follow/:friend
-// http://localhost:5000/users/:friend/unFollow
+// https://sky-hcfs.onrender.com/users/find/:name
+// https://sky-hcfs.onrender.com/users/search/:country
+// https://sky-hcfs.onrender.com/users/:id
+// https://sky-hcfs.onrender.com/users/user/:id
+// https://sky-hcfs.onrender.com/users/follow/:friend
+// https://sky-hcfs.onrender.com/users/:friend/unFollow
 
 // >> Post
-// http://localhost:5000/users/login
-// http://localhost:5000/users/register
+// https://sky-hcfs.onrender.com/users/login
+// https://sky-hcfs.onrender.com/users/register
 
 // >> Put
 
-// http://localhost:5000/users/update/info
+// https://sky-hcfs.onrender.com/users/update/info

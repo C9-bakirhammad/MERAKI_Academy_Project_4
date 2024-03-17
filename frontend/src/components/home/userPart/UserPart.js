@@ -11,7 +11,7 @@ const UserPart = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/users/search/${userInfo.country}`)
+      .get(`https://sky-hcfs.onrender.com/users/search/${userInfo.country}`)
       .then((result) => {
         setSuggeted(result.data.users);
       })

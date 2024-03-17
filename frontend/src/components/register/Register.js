@@ -178,7 +178,7 @@ const Register = () => {
                   return setIsEmpty(true);
                 }
                 axios
-                  .post("http://localhost:5000/users/register", {
+                  .post("https://sky-hcfs.onrender.com/users/register", {
                     firstName,
                     lastName,
                     country,

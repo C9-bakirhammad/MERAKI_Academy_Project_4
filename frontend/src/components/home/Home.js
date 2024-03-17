@@ -48,7 +48,7 @@ const Home = () => {
               className="searchButton"
               onClick={(e) => {
                 axios
-                  .get(`http://localhost:5000/users/find/${searchValue}`)
+                  .get(`https://sky-hcfs.onrender.com/users/find/${searchValue}`)
                   .then((result) => {
                     setSearchResult(result.data.users);
                   })
