@@ -102,26 +102,31 @@ const UserPart = () => {
         {suggeted.map((friend, i) => {
           return (
             <div key={i} className="mt-2 mb-2 ms-2">
-              <img
-                className="rounded-circle"
-                src={friend.profileImage}
-                height={50}
-                width={50}
-              />
-              <span
-                id={friend._id}
-                className="ms-1"
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  {
-                    friend._id === userInfo.userId
-                      ? navigate("/profile")
-                      : navigate(`/friend/${friend._id}`);
-                  }
-                }}
-              >
-                {friend.firstName} {friend.lastName}
-              </span>
+              {userInfo.userId !== friend._id && (
+                <>
+                  {" "}
+                  <img
+                    className="rounded-circle"
+                    src={friend.profileImage}
+                    height={50}
+                    width={50}
+                  />
+                  <span
+                    id={friend._id}
+                    className="ms-1"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      {
+                        friend._id === userInfo.userId
+                          ? navigate("/profile")
+                          : navigate(`/friend/${friend._id}`);
+                      }
+                    }}
+                  >
+                    {friend.firstName} {friend.lastName}
+                  </span>
+                </>
+              )}
             </div>
           );
         })}
