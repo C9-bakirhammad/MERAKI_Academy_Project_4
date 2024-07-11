@@ -5,6 +5,7 @@ import { usersContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import UploadImg from "../UploadImg";
+import Loader from "../Exta/Loader";
 
 const Login = () => {
   const { setToken, setUserInfo, setLikedPosts, setFollowing } =
@@ -136,6 +137,8 @@ const Login = () => {
           </div>
         </div>
       </div>
+
+      <Loader/>
     </div>
   );
 };
