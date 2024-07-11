@@ -16,6 +16,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errResp, setErrResp] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   return (
     <div className="mainBg">
@@ -92,6 +93,7 @@ const Login = () => {
                     if (email === "" || password === "") {
                       return setIsEmpty(!isEmpty);
                     }
+                    setLoader(true);
                     axios
                       .post("https://sky-hcfs.onrender.com/users/login", {
                         email,
@@ -103,11 +105,13 @@ const Login = () => {
                           "UI",
                           JSON.stringify(result.data.userInfo)
                         );
+                        setLoader(false);
                         setToken(result.data.token);
                         setUserInfo(result.data.userInfo);
                         navigate("/home");
                       })
                       .catch((err) => {
+                        setLoader(false);
                         setErrResp(err.response.data.message);
                       });
                   }}
@@ -137,8 +141,8 @@ const Login = () => {
           </div>
         </div>
       </div>
-
-      <Loader/>
+      {/* To show loader when login */}
+      {loader && <Loader />}
     </div>
   );
 };
