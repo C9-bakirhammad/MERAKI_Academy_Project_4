@@ -2,7 +2,7 @@
 
 </p>
 
-<h3 align="center">Project Title
+<h3 align="center">Sky
 </h3>
 
 ---
