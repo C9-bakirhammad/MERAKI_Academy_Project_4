@@ -17,3 +17,33 @@
   .body{
     width: 10px;
   }
+
+  /* ========================================================= */
+
+  @media (min-width: 600px) and (max-width: 760px){
+    .subContainer{
+      display: flex;
+      flex-direction: column;
+        }
+  }
+@media (min-width: 270px) and (max-width: 600px) {
+  .loginForm {
+   /* width: 100vw; */
+  }
+  .subtitle{
+    display: none;
+  }
+
+  .mainBg{ 
+     background-color: #e7e7e7;
+  height: 100vh;
+  width: 100vw;
+  } 
+  .title{
+    text-align: center;
+  }
+  .subContainer{
+display: flex;
+flex-direction: column;
+  }
+}

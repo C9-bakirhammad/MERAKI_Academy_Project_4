@@ -24,17 +24,17 @@ const Login = () => {
         <h3 className="header"></h3>
       </div>
 
-      <div className="container container-sm">
-        <div className="row mt-5 ms-2 me-2">
+      <div className="container ">
+        <div className="row mt-4 ms-2 me-2 subContainer">
           <div className="col me-1">
-            <h4 style={{ color: "#1B5ACF", fontSize: "70px" }}>Sky</h4>
-            <p style={{ fontSize: "25px" }}>
+            <h4 className="title" style={{ color: "#1B5ACF", fontSize: "70px" }}>Sky</h4>
+            <p className="subtitle" style={{ fontSize: "25px" }}>
               "The place where you are Free and Safe"
             </p>
           </div>
 
-          <div className="col bg-white formBg">
-            <form className="row">
+          <div className="col bg-white formBg loginForm">
+            <form className="row loginForm">
               <div>
                 <div className="mb-2">
                   <label className="mt-4">Email</label>
@@ -121,15 +121,15 @@ const Login = () => {
               </div>
 
               <div>
-                <div style={{ textAlign: "center" }}>
-                  ________________________________________________
+                <div style={{ textAlign: "center" , marginTop: "5px"}}>
+              OR
                 </div>
               </div>
 
               <div className="row">
                 {" "}
                 <Button
-                  className="btn btn-dark btn-lg mt-3 mb-3 ms-3"
+                  className="btn btn-dark btn-lg mt-2 mb-3 ms-3"
                   onClick={() => {
                     navigate("/register");
                   }}
