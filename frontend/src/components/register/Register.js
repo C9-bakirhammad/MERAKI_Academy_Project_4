@@ -18,6 +18,7 @@ const Register = () => {
   const [errResp, setErrResp] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
   const [loader, setLoader] = useState(false);
+  const checkPass = /[A-Z][0-9]{3,}/g;
 
   return (
     <div className="RegMainBKg">
@@ -70,7 +71,7 @@ const Register = () => {
             <div className="col mb-2">
               <label>Birth Date*</label>
               <input
-                type="text"
+                type="date"
                 className={
                   isEmpty && birthDate === ""
                     ? "form-control is-invalid"
@@ -78,7 +79,9 @@ const Register = () => {
                 }
                 placeholder="dd/mm/yyyy"
                 onChange={(e) => {
-                  setBirthDate(e.target.value.split("/").reverse().join("-"));
+                  setBirthDate(
+                    e.target.value
+                  ) /* .split("/").reverse().join("-") */;
                 }}
               />
               {isEmpty && birthDate === "" && (
@@ -125,7 +128,7 @@ const Register = () => {
           </div>
 
           <div className="mb-2">
-            <label>Password*</label>
+            <label style={{ position: "relative" }}>Password*</label>
             <input
               type="password"
               className={
@@ -133,7 +136,7 @@ const Register = () => {
                   ? "form-control is-invalid"
                   : "form-control"
               }
-              placeholder="password"
+              placeholder="password at least 8 digits with capital letter and numbers"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
@@ -152,7 +155,7 @@ const Register = () => {
                   ? "form-control is-invalid"
                   : "form-control"
               }
-              placeholder="password"
+              placeholder="confirm password"
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
               }}
@@ -168,10 +171,13 @@ const Register = () => {
                 {errResp}
               </div>
             )}
+
+            {/* ========== Register button with sending the request =================== */}
             <Button
               className="col bg-black mt-3"
               onClick={() => {
                 if (
+                  // check if any field is empty
                   firstName === "" ||
                   lastName === "" ||
                   country === "" ||
@@ -183,12 +189,30 @@ const Register = () => {
                   return setIsEmpty(true);
                 }
 
-                if(email.includes("@") === false ){
-                  return setErrResp("Email must contain @ symbol")
+                if (email.includes("@") === false) {
+                  // check if email don't contain @ symbol
+                  return setErrResp("Email must contain @ symbol");
                 }
 
-                setLoader(true);
-                axios
+                if (password.length >= 8) {
+                  // check if passowrd contain Cap letter, numbers and more than 8 digits
+                  if (checkPass.test(password) === false) {
+                    return setErrResp(
+                      "Password must contain at least One Capital Letter and 3 numbers"
+                    );
+                  }
+                } else {
+                  return setErrResp("Password must contain at least 8 digits");
+                }
+
+                if (password !== confirmPassword) {
+                  // check if two passowrds are matched
+                  return setErrResp("Passowrds not match");
+                }
+
+                setLoader(true); // show the loader
+
+                axios // Sending the request
                   .post("https://sky-hcfs.onrender.com/users/register", {
                     firstName,
                     lastName,
@@ -213,6 +237,7 @@ const Register = () => {
           </div>
         </form>
 
+        {/* ======== Back to login Button ========== */}
         <div className="row justify-content-end">
           <Button
             className=" mt-3 mb-2"
@@ -224,7 +249,7 @@ const Register = () => {
           </Button>
         </div>
       </div>
-      {/* loader in regerster */}
+      {/* =========== loader in regerster =================*/}
       {loader && <Loader />}
     </div>
   );
