@@ -27,9 +27,7 @@
         }
   }
 @media (min-width: 270px) and (max-width: 600px) {
-  .loginForm {
-   /* width: 100vw; */
-  }
+
   .subtitle{
     display: none;
   }

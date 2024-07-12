@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import("./Register.css");
+import "./Register.css";
+import Loader from "../Exta/Loader";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,19 +17,19 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errResp, setErrResp] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
-  console.log(birthDate);
+  const [loader, setLoader] = useState(false);
 
   return (
-    <div className="RegMainBg">
-      <div className="registerNav">
+    <div className="RegMainBKg">
+      {/* <div className="registerNav">
         <h3 className="header">Sky</h3>
-      </div>
+      </div> */}
 
-      <div className="container body mt-3">
-        <form>
-          <div className="row justify-content-evenly">
+      <div className="container body">
+        <form className="subBody mt-3">
+          <div className="row justify-content-evenly ">
             <div className="col mb-2">
-              <label>First Name</label>
+              <label>First Name*</label>
               <input
                 type="text"
                 className={
@@ -46,7 +47,7 @@ const Register = () => {
               )}
             </div>
             <div className="col mb-2">
-              <label>Last Name</label>
+              <label>Last Name*</label>
               <input
                 type="text"
                 className={
@@ -67,7 +68,7 @@ const Register = () => {
 
           <div className="row">
             <div className="col mb-2">
-              <label>Birth Date</label>
+              <label>Birth Date*</label>
               <input
                 type="text"
                 className={
@@ -85,7 +86,7 @@ const Register = () => {
               )}
             </div>
             <div className="col mb-2">
-              <label>Country</label>
+              <label>Country*</label>
               <input
                 type="text"
                 className={
@@ -105,7 +106,7 @@ const Register = () => {
           </div>
 
           <div className="mb-2">
-            <label>Email</label>
+            <label>Email*</label>
             <input
               type="email"
               className={
@@ -124,7 +125,7 @@ const Register = () => {
           </div>
 
           <div className="mb-2">
-            <label>Password</label>
+            <label>Password*</label>
             <input
               type="password"
               className={
@@ -143,7 +144,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label>Confirm Password</label>
+            <label>Confirm Password*</label>
             <input
               type="password"
               className={
@@ -162,7 +163,11 @@ const Register = () => {
           </div>
 
           <div className="row justify-content-center">
-            {errResp && <div className="mt-3">{errResp}</div>}
+            {errResp && (
+              <div className="mt-3" style={{ color: "red" }}>
+                {errResp}
+              </div>
+            )}
             <Button
               className="col bg-black mt-3"
               onClick={() => {
@@ -177,6 +182,12 @@ const Register = () => {
                 ) {
                   return setIsEmpty(true);
                 }
+
+                if(email.includes("@") === false ){
+                  return setErrResp("Email must contain @ symbol")
+                }
+
+                setLoader(true);
                 axios
                   .post("https://sky-hcfs.onrender.com/users/register", {
                     firstName,
@@ -188,9 +199,11 @@ const Register = () => {
                     confirmPassword,
                   })
                   .then((result) => {
+                    setLoader(false);
                     navigate("/login");
                   })
                   .catch((err) => {
+                    setLoader(false);
                     setErrResp(err.response.data.message);
                   });
               }}
@@ -202,7 +215,7 @@ const Register = () => {
 
         <div className="row justify-content-end">
           <Button
-            className="col-3 mt-2 mb-2"
+            className=" mt-3 mb-2"
             onClick={() => {
               navigate("/login");
             }}
@@ -211,6 +224,8 @@ const Register = () => {
           </Button>
         </div>
       </div>
+      {/* loader in regerster */}
+      {loader && <Loader />}
     </div>
   );
 };

@@ -1,12 +1,20 @@
-.RegMainBg {
-    background-color: #e7e7e7;
-    height: 10vh;
+.RegMainBKg {
+    background-color: #ffffff;
+    height: 100vh;
   }
   .body{
+  display: flex;
+  flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    /* background-color: aquamarine; */
+  }
+  .subBody{
     width: 50vw;
   }
   .registerNav {
-    background-color: rgb(59, 59, 245);
+    background-color: #e7e7e7;
     height: 11vh;
-    box-shadow: 1px 1px 5px;
+    /* box-shadow: 1px 1px 5px; */
   }
