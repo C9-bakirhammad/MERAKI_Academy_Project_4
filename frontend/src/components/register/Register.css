@@ -1,20 +1,51 @@
 .RegMainBKg {
-    background-color: #ffffff;
-    height: 100vh;
-  }
-  .body{
+  background-color: #ffffff;
+  height: 100vh;
+}
+.body {
   display: flex;
   flex-direction: column;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    /* background-color: aquamarine; */
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  /* background-color: aquamarine; */
+}
+.subBody {
+  width: 50vw;
+}
+.registerNav {
+  background-color: #e7e7e7;
+  height: 11vh;
+  /* box-shadow: 1px 1px 5px; */
+}
+
+/* ----------------------------------------- */
+@media (min-width: 551px) and (max-width: 850px) {
+  .subBody {
+    width: 70vw;
   }
-  .subBody{
-    width: 50vw;
+
+  .inputs {
+    display: flex;
+    flex-direction: column;
   }
-  .registerNav {
-    background-color: #e7e7e7;
-    height: 11vh;
-    /* box-shadow: 1px 1px 5px; */
+
+  .errResp {
+    font-size: 18px;
   }
+}
+
+@media (min-width: 250px) and (max-width: 550px) {
+  .subBody {
+    width: 85vw;
+  }
+
+  .inputs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .errResp {
+    font-size: 16px;
+  }
+}

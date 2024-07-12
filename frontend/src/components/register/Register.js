@@ -18,7 +18,6 @@ const Register = () => {
   const [errResp, setErrResp] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
   const [loader, setLoader] = useState(false);
-  const checkPass = /[A-Z][0-9]{3,}/g;
 
   return (
     <div className="RegMainBKg">
@@ -28,7 +27,7 @@ const Register = () => {
 
       <div className="container body">
         <form className="subBody mt-3">
-          <div className="row justify-content-evenly ">
+          <div className="row justify-content-evenly inputs">
             <div className="col mb-2">
               <label>First Name*</label>
               <input
@@ -67,7 +66,7 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="row">
+          <div className="row inputs">
             <div className="col mb-2">
               <label>Birth Date*</label>
               <input
@@ -128,7 +127,15 @@ const Register = () => {
           </div>
 
           <div className="mb-2">
-            <label style={{ position: "relative" }}>Password*</label>
+            <label style={{ position: "relative" }}>
+              Password*{" "}
+              <span
+                className="span"
+                style={{ fontSize: "15px", color: "grey" }}
+              >
+                "At least 8 characters, capital letter and numbers"
+              </span>
+            </label>
             <input
               type="password"
               className={
@@ -136,7 +143,7 @@ const Register = () => {
                   ? "form-control is-invalid"
                   : "form-control"
               }
-              placeholder="password at least 8 digits with capital letter and numbers"
+              placeholder="password"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
@@ -165,7 +172,7 @@ const Register = () => {
             )}
           </div>
 
-          <div className="row justify-content-center">
+          <div className="row justify-content-center errResp">
             {errResp && (
               <div className="mt-3" style={{ color: "red" }}>
                 {errResp}
@@ -194,20 +201,21 @@ const Register = () => {
                   return setErrResp("Email must contain @ symbol");
                 }
 
-                if (password.length >= 8) {
-                  // check if passowrd contain Cap letter, numbers and more than 8 digits
-                  if (checkPass.test(password) === false) {
-                    return setErrResp(
-                      "Password must contain at least One Capital Letter and 3 numbers"
-                    );
-                  }
-                } else {
-                  return setErrResp("Password must contain at least 8 digits");
+                if (password.length < 8) {
+                  // check if passowrd more than 8 characters
+                  return setErrResp(
+                    "Password must contain at least 8 characters"
+                  );
                 }
 
-                if (password !== confirmPassword) {
-                  // check if two passowrds are matched
-                  return setErrResp("Passowrds not match");
+                if (password.match(/[A-Z]/g) === null) {
+                  return setErrResp(
+                    "Password must contain Capital Letter and numbers"
+                  );
+                } else if (password.match(/[0-9]/g) === null) {
+                  return setErrResp(
+                    "Password must contain Capital Letter and numbers"
+                  );
                 }
 
                 setLoader(true); // show the loader
