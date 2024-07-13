@@ -13,7 +13,7 @@ const PostsPart = () => {
 
   return (
     <postContext.Provider value={{ homePosts, setHomePosts }}>
-      <div>
+      <div className="postPart">
         <div className="mb-2">
           <PublishPost />
         </div>

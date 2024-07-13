@@ -9,9 +9,11 @@ import Modal from "react-bootstrap/Modal";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import axios from "axios";
+import { IoSearch } from "react-icons/io5";
 
 const Home = () => {
-  const { userInfo,setToken, friendId, setFriendId } = useContext(usersContext);
+  const { userInfo, setToken, friendId, setFriendId } =
+    useContext(usersContext);
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [isError, setIsError] = useState("");
@@ -37,18 +39,20 @@ const Home = () => {
           <div className="col divSearch">
             {" "}
             <input
-              className="search"
+              className="searchInput"
               placeholder=" Search"
               onChange={(e) => {
                 setSearchValue(e.target.value.toLowerCase());
               }}
             />
-            <button
-              type="submit"
-              className="searchButton"
+            <IoSearch
+            className="searchIcon"
+              size={40}
               onClick={(e) => {
                 axios
-                  .get(`https://sky-hcfs.onrender.com/users/find/${searchValue}`)
+                  .get(
+                    `https://sky-hcfs.onrender.com/users/find/${searchValue}`
+                  )
                   .then((result) => {
                     setSearchResult(result.data.users);
                   })
@@ -58,12 +62,10 @@ const Home = () => {
                   });
                 setSearch(true);
               }}
-            >
-              Search
-            </button>
+            />
           </div>
 
-          <div className="col" style={{ textAlign: "end", color: "white" }}>
+          <div className="col homeMyprofile" style={{ textAlign: "end", color: "white" }}>
             <div className="row">
               <div className="col" style={{ textAlign: "end" }}>
                 <Link
@@ -107,14 +109,57 @@ const Home = () => {
       </nav>
       <div className="container mt-4">
         <div className="row" style={{ justifyContent: "center" }}>
-          <div className="col-4 me-3 userbg">
+          <div className="col-4 me-3 userbg homeUserPart">
             <UserPart />
           </div>
-          <div className="col-6">
+          <div className="col-6 homePostP">
             <PostsPart />
           </div>
         </div>
       </div>
+{/* ===================================================================================== */}
+     {/*  <div className="row homeMyprofile2" style={{textAlign: "center", color: "white" }}>
+            <div className="row">
+              <div className="col" style={{ textAlign: "center" }}>
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/home"
+                >
+                  Home
+                </Link>
+              </div>
+
+              <div className="col" style={{ textAlign: "center" }}>
+                <Link className="nav-link active" to="/profile">
+                  MyProfile
+                </Link>
+              </div>
+              <div className="col">
+                <svg
+                  style={{ cursor: "pointer" }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="29"
+                  height="29"
+                  fill="currentColor"
+                  className="bi bi-box-arrow-right"
+                  viewBox="0 0 16 16"
+                  onClick={handleShow}
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div> */}
+
+          {/* =============================================================== */}
       <>
         <Modal show={show} onHide={handleClose} animation={false}>
           <Modal.Header closeButton>
@@ -199,7 +244,6 @@ const Home = () => {
           </Modal.Footer>
         </Modal>
       </>
-      ;
     </div>
   );
 };
