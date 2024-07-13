@@ -103,7 +103,9 @@ const ProfilePosts = () => {
                           id={elem._id}
                           onClick={(e) => {
                             axios
-                              .delete(`https://sky-hcfs.onrender.com/posts/${elem._id}`)
+                              .delete(
+                                `https://sky-hcfs.onrender.com/posts/${elem._id}`
+                              )
                               .then((result) => {
                                 let newDeletePosts = profilePosts.filter(
                                   (element, i) => {
@@ -143,6 +145,7 @@ const ProfilePosts = () => {
                     <div className="col ms-2">
                       <p
                         style={{
+                          overflowWrap: "break-word",
                           fontFamily: "inherit",
                           fontSize: "20px",
                           fontWeight: "450",
@@ -340,6 +343,7 @@ const ProfilePosts = () => {
                         ) : (
                           <p
                             style={{
+                              overflowWrap: "break-word",
                               fontFamily: "inherit",
                               fontSize: "20px",
                               fontWeight: "450",

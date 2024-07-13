@@ -36,7 +36,7 @@ const PublishPost = () => {
   };
 
   return (
-    <div className="row border border-secondary bg-white">
+    <div className="row border border-primary bg-white">
       <div>
         <div className="row" style={{ height: "40px" }}>
           <div className="col" style={{ textAlign: "center" }}>
@@ -54,7 +54,7 @@ const PublishPost = () => {
           <textarea
             className="textarea border-0 w-100 p-2"
             rows="3"
-            placeholder={`What you think about ${userInfo.firstName}`}
+            placeholder={`Write what's in your mind..`}
             onChange={(e) => {
               setPostText(e.target.value);
             }}
@@ -63,7 +63,7 @@ const PublishPost = () => {
         <div></div>
       </div>
 
-      <div className="row border-top">
+      <div className="row ">
         <div className=" col ms-3 mt-2 mb-2">
           <Button
             variant="btn btn-outline-warning"
