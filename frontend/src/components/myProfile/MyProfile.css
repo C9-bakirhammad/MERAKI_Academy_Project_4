@@ -109,3 +109,52 @@
 .font {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ------------------------------------------------ */
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .profileUpperPart{
+    display: flex;
+    flex-direction: column;
+    justify-self: start;
+    align-items: start;
+   padding: 10px ;
+  }
+  .editProfile{
+    align-self: flex-end;
+  }
+  
+  .profileInfo{
+    display: none;
+    }
+    
+    .profilePost{
+      display: contents;
+      width: 70vw;
+    
+    }
+}
+
+@media (min-width: 280px) and (max-width: 600px) {
+.profileUpperPart{
+  display: flex;
+  flex-direction: column;
+  justify-self: start;
+  align-items: start;
+ padding: 10px ;
+}
+.editProfile{
+  align-self: flex-end;
+}
+
+.profileInfo{
+display: none;
+}
+
+.profilePost{
+  display: contents;
+  width: 80vw;
+
+}
+
+}

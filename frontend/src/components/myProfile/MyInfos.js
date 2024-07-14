@@ -2,13 +2,20 @@ import React, { useContext, useState } from "react";
 import { profileContext } from "./MyProfile";
 
 const MyInfos = () => {
-  const { profileUser, profilePosts,following } = useContext(profileContext);
+  const { profileUser, profilePosts, following } = useContext(profileContext);
   return (
-    <div className="col">
+    <div className="col profileInfo">
       <div className="bg-white border rounded font mb-2">
-      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person-lines-fill me-2 ms-2 mt-2 mb-2" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-</svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          fill="currentColor"
+          className="bi bi-person-lines-fill me-2 ms-2 mt-2 mb-2"
+          viewBox="0 0 16 16"
+        >
+          <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+        </svg>
         <span className="">My Infos</span>
       </div>
 
@@ -51,14 +58,21 @@ const MyInfos = () => {
       </div>
 
       <div className="col">
-{ following.map((friend, i)=>{
-  return (
-    <div className="ms-2">
-      <img className="rounded-circle" src={friend.profileImage} height={70} width={70} />
-      <sp className="ms-1 font">{friend.firstName} {friend.lastName}</sp>
-    </div>
-  )
-})}
+        {following.map((friend, i) => {
+          return (
+            <div className="ms-2 mb-2">
+              <img
+                className="rounded-circle"
+                src={friend.profileImage}
+                height={70}
+                width={70}
+              />
+              <sp className="ms-1 font">
+                {friend.firstName} {friend.lastName}
+              </sp>
+            </div>
+          );
+        })}
       </div>
 
       {/* ============== photo list ====================== */}

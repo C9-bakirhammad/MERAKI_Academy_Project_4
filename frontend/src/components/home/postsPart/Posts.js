@@ -105,9 +105,9 @@ const Posts = () => {
                         </span>
                       </span>
                     </div>
-                    {userInfo.userId !== elem.author._id && (
+                    {/*          {userInfo.userId !== elem.author._id && (
                       <div className="col-1">
-                        {/* ====== Save Post Icon ======  */}
+                 ---------- Save Icon ----------------
                         <svg
                           id={elem._id}
                           // style={{ color: "#0D6EFD" }}
@@ -121,7 +121,7 @@ const Posts = () => {
                           <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
                         </svg>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
 
@@ -313,7 +313,11 @@ const Posts = () => {
                         <span> </span>
                         {elem.comments.length !== 0 && (
                           <span style={{ fontSize: "14px", color: "GrayText" }}>
-                            {elem.comments.length}.comment
+                            {elem.comments.length === 1 ? (
+                              <>{elem.comments.length}.comment </>
+                            ) : (
+                              <>{elem.comments.length}.comments</>
+                            )}
                           </span>
                         )}
                       </div>

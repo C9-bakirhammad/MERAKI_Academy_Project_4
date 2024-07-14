@@ -18,7 +18,7 @@ const FriendPosts = () => {
       });
   }, []);
   return (
-    <div>
+    <div className="friendPost">
       {friendPosts.length === 0 ? (
         <div
           className="row"
@@ -35,7 +35,7 @@ const FriendPosts = () => {
         <>
           {friendPosts.map((elem, i) => {
             return (
-              <div key={elem._id} className="row bg-white mb-2 border">
+              <div key={elem._id} className="row bg-white mb-2 border friendPost">
                 <div>
                   <div
                     className="row align-items-center"
@@ -115,15 +115,16 @@ const FriendPosts = () => {
                     )}
                   </div>
                 </div>
+{/* 
 
-                {/* ========= Bottom part of Post Form ========= */}
+                ========= Bottom part of Post Form ========= 
                 <div>
                   <div
                     className="row align-items-center border-top mb-1"
                     style={{ textAlign: "center", height: "38px" }}
                   >
                     <div className="col">
-                      {/* ======= Like Icon ========= */}
+                       ======= Like Icon ========= 
                       <svg
                         id={elem._id}
                         xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +139,7 @@ const FriendPosts = () => {
                     </div>
 
                     <div className="col">
-                      {/* ======= comment Icon ========= */}
+                       ======= comment Icon ========= 
                       <svg
                         id={elem._id}
                         xmlns="http://www.w3.org/2000/svg"
@@ -152,24 +153,9 @@ const FriendPosts = () => {
                         <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2" />
                       </svg>
                     </div>
-
-                    <div className="col">
-                      {/* ======= share Icon ========= */}
-                      <svg
-                        id={elem._id}
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="28"
-                        height="28"
-                        fill="currentColor"
-                        className="bi bi-reply-all pionter"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M8.098 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.7 8.7 0 0 0-1.921-.306 7 7 0 0 0-.798.008h-.013l-.005.001h-.001L8.8 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L4.114 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028zM9.3 10.386q.102 0 .223.006c.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96z" />
-                        <path d="M5.232 4.293a.5.5 0 0 0-.7-.106L.54 7.127a1.147 1.147 0 0 0 0 1.946l3.994 2.94a.5.5 0 1 0 .593-.805L1.114 8.254l-.042-.028a.147.147 0 0 1 0-.252l.042-.028 4.012-2.954a.5.5 0 0 0 .106-.699" />
-                      </svg>
-                    </div>
                   </div>
                 </div>
+                 */}
               </div>
             );
           })}

@@ -54,7 +54,7 @@
   border-radius: 8px;
   padding-left: 10px;
   height: 6vh;
-  width: 15vw;
+  width: 22vw;
 }
 .searchIcon {
   color: white;
@@ -62,9 +62,7 @@
 }
 
 
-/* .homeMyprofile2{
-  display: none;
-} */
+
 /* ---------------------------------------- */
 @media (min-width: 601px) and (max-width: 900px) {
   .homeUserPart {
@@ -92,16 +90,11 @@
   }
 
   .homeMyprofile{
-    display: none;
+
+display: none;
+    
   }
 
-/*   .homeMyprofile2{
-    background-color: #1B5ACF ;
-    display: contents;
-    position: sticky;
-    bottom: 0;
-
-  } */
 }
 
 

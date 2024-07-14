@@ -7,7 +7,9 @@ import ProfilePosts from "./ProfilePosts";
 import UploadImg from "../UploadImg";
 import { Dropdown, DropdownButton, Button, Modal } from "react-bootstrap";
 import MyInfos from "./MyInfos";
+import { IoSearch } from "react-icons/io5";
 export const profileContext = createContext();
+
 
 const MyProfile = () => {
   const [profileUser, setProfileUser] = useState({});
@@ -22,6 +24,7 @@ const MyProfile = () => {
   const [isUpload, setIsUpload] = useState(false);
   const [selectPhoto, setSelectPhoto] = useState("");
   const [isLoader, setIsLoader] = useState(true);
+  
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -85,15 +88,7 @@ const MyProfile = () => {
               <div className="title">Sky</div>
             </div>
 
-            <div className="col divSearch">
-              {" "}
-              <input className="search" type="search" placeholder=" Search" />
-              <button className="searchButton">Search</button>
-            </div>
-
-            <div className="col" style={{ textAlign: "end", color: "white" }}>
-              <div className="row">
-                <div className="col" style={{ textAlign: "end" }}>
+            <div className="col" style={{ textAlign: "center", color: "white"  }}>
                   <Link
                     className="nav-link active"
                     aria-current="page"
@@ -103,12 +98,8 @@ const MyProfile = () => {
                   </Link>
                 </div>
 
-                <div className="col-4" style={{ textAlign: "start" }}>
-                  <Link className="nav-link active" to="/profile">
-                    MyProfile
-                  </Link>
-                </div>
-                <div className="col-1">
+                
+                <div className="col" style={{ textAlign: "end", color: "white" }}>
                   <svg
                     style={{ cursor: "pointer" }}
                     xmlns="http://www.w3.org/2000/svg"
@@ -129,8 +120,7 @@ const MyProfile = () => {
                     />
                   </svg>
                 </div>
-              </div>
-            </div>
+
           </div>
         </nav>
         {/* ========== Profile Heading ========= */}
@@ -166,7 +156,7 @@ const MyProfile = () => {
           </div>
         </div>
 
-        <div className="row w-100 mt-3 col-sm">
+        <div className="row w-100 mt-3 col-sm profileUpperPart">
           <div className="col-2"></div>
 
           <div
@@ -202,7 +192,7 @@ const MyProfile = () => {
               Following
             </div>
           </div>
-          <div className="col-6" style={{ textAlign: "end" }}>
+          <div className="col-6 editProfile" style={{ textAlign: "end" }}>
             <DropdownButton title="Edit Profile" variant="">
               <Dropdown.Item
                 onClick={() => {
@@ -231,11 +221,11 @@ const MyProfile = () => {
         {/* ====== Profile Body ============ */}
 
         <div className="container mt-5">
-          <div className="row" style={{ justifyContent: "center" }}>
-            <div className="col-4 ms-2 me-2">
+          <div className="row myProfile" style={{ justifyContent: "center" }}>
+            <div className="col-4 ms-2 me-2 profileInfo">
               <MyInfos />
             </div>
-            <div className="col-6 ms-2 me-2">
+            <div className="col-6 ms-2 me-2 profilePost">
               <ProfilePosts />{" "}
             </div>
           </div>
