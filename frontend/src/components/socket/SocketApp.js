@@ -39,8 +39,8 @@ function SocketApp() {
     axios
       .get(`https://sky-hcfs.onrender.com/info/${userId}`)
       .then((result) => {
-        setMyFriends(result.data.user.following);
-        console.log(result.data.user.following);
+        setMyFriends(result.data.result.following);
+        console.log(result.data.result.following);
         console.log(result.data);
       })
       .catch((err) => {
