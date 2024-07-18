@@ -157,9 +157,32 @@ const getUser = (req, res) => {
     });
 };
 
+//getUserById fucntion >>
+const myInfo = (req, res) => {
+  const { id } = req.params;
+  usersModel
+    .findOne({ _id: id }, "-phoneNumber -password -role -__v")
+    .populate("followers")
+    .populate("following")
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "User is found",
+        result: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        err: err,
+      });
+    });
+};
+
 // find users >>
 const findUsers = (req, res) => {
-  const  {name}  = req.params;
+  const { name } = req.params;
   usersModel
     .find({ searchFname: name }, "firstName lastName profileImage")
     .then((result) => {
@@ -324,4 +347,5 @@ module.exports = {
   addFollow,
   unFollow,
   updateUserInfo,
+  myInfo,
 };

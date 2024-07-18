@@ -37,10 +37,11 @@ function SocketApp() {
   /* ------------- */
   useEffect(() => {
     axios
-      .get(`https://sky-hcfs.onrender.com/users/${userId}`)
+      .get(`https://sky-hcfs.onrender.com/info/${userId}`)
       .then((result) => {
         setMyFriends(result.data.user.following);
         console.log(result.data.user.following);
+        console.log(result.data);
       })
       .catch((err) => {
         console.log(err);
