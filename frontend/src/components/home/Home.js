@@ -82,11 +82,11 @@ const Home = () => {
                 </Link>
               </div>
 
-              <div className="col" style={{ textAlign: "start" }}>
+            {/*   <div className="col" style={{ textAlign: "start" }}>
                 <Link className="nav-link active" to="/message">
                   Chatting
                 </Link>
-              </div>
+              </div> */}
 
               <div className="col-1">
                 <svg
