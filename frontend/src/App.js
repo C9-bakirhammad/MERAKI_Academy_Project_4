@@ -7,6 +7,7 @@ import Register from "./components/register/Register";
 import Home from "./components/home/Home";
 import MyProfile from "./components/myProfile/MyProfile";
 import FriendProfile from "./components/friend/FriendProfile";
+import MsgComp from "./components/socket/MsgComp";
 export const usersContext = createContext();
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
           {token && <Route path="/home" element={<Home />} />}
           {token && <Route path="/profile" element={<MyProfile />} />}
           {token && <Route path="/friend/:id" element={<FriendProfile />} />} 
+          {token && <Route path="/message" element={<MsgComp/>} />} 
+
 
           <Route path="/" element={<Login />} />
           <Route path="*" element={<NotFound />} />

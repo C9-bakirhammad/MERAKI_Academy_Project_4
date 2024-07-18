@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 import FriendInfo from "./FriendInfo";
 import FriendPosts from "./FriendPosts";
 import { useParams } from "react-router-dom";
+import SocketApp from "../socket/SocketApp";
 export const friendContext = createContext();
 
 const FriendProfile = () => {
@@ -147,6 +148,7 @@ const FriendProfile = () => {
                     UnFollow
                   </Button>
                 </div>
+                
               ) : (
                 <div>
                   <Button

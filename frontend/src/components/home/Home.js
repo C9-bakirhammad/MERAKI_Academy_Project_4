@@ -6,13 +6,11 @@ import PostsPart from "./postsPart/PostsPart";
 import { usersContext } from "../../App";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import axios from "axios";
 import { IoSearch } from "react-icons/io5";
 
 const Home = () => {
-  const { userInfo, setToken, friendId, setFriendId } =
+  const { userInfo, setToken} =
     useContext(usersContext);
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -66,10 +64,7 @@ const Home = () => {
             />
           </div>
 
-          <div
-            className="col"
-            style={{ textAlign: "end", color: "white" }}
-          >
+          <div className="col" style={{ textAlign: "end", color: "white" }}>
             <div className="row">
               <div className="col" style={{ textAlign: "end" }}>
                 <Link
@@ -81,11 +76,18 @@ const Home = () => {
                 </Link>
               </div>
 
-              <div className="col-4" style={{ textAlign: "start" }}>
+              <div className="col" style={{ textAlign: "center" }}>
                 <Link className="nav-link active" to="/profile">
                   MyProfile
                 </Link>
               </div>
+
+              <div className="col" style={{ textAlign: "start" }}>
+                <Link className="nav-link active" to="/message">
+                  Chatting
+                </Link>
+              </div>
+
               <div className="col-1">
                 <svg
                   style={{ cursor: "pointer" }}
@@ -102,7 +104,7 @@ const Home = () => {
                     d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
                   />
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
                   />
                 </svg>
@@ -122,7 +124,7 @@ const Home = () => {
         </div>
       </div>
       {/* ===================================================================================== */}
-   
+
       {/* =============================================================== */}
       <>
         <Modal show={show} onHide={handleClose} animation={false}>
