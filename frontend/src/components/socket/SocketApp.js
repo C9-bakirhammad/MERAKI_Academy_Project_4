@@ -37,7 +37,7 @@ function SocketApp() {
   /* ------------- */
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/users/info/${userId}`)
+      .get(`https://sky-hcfs.onrender.com/users/info/${userId}`)
       .then((result) => {
         setMyFriends(result.data.result.following);
         console.log(result.data.result.following);
