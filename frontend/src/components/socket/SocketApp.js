@@ -37,10 +37,10 @@ function SocketApp() {
   /* ------------- */
   useEffect(() => {
     axios
-      .get(`https://sky-hcfs.onrender.com/users/info/${userId}`)
+      .get(`https://sky-hcfs.onrender.com/users/${userId}`)
       .then((result) => {
-        setMyFriends(result.data.result.following);
-        console.log(result.data.result.following);
+        setMyFriends(result.data.user.following);
+        console.log(result.data.user.following);
         console.log(result.data);
       })
       .catch((err) => {
@@ -54,13 +54,6 @@ function SocketApp() {
       {/* ------- Left Side ----- */}
       <div className="row" style={{ justifyContent: "center" }}>
         <div className="col-4 me-3 userbg " style={{ backgroundColor: "red" }}>
-          {/*     <button
-            onClick={() => {
-              setSocket(SocketInit({ userId, token }));
-            }}
-          >
-            connect
-          </button> */}
           {myFriends.map((friend, i) => {
             return (
               <div

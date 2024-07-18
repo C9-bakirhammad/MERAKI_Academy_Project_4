@@ -157,29 +157,6 @@ const getUser = (req, res) => {
     });
 };
 
-//getUserById fucntion >>
-const myInfo = (req, res) => {
-  const { id } = req.params;
-  usersModel
-    .findOne({ _id: id }, "-phoneNumber -password -role -__v")
-    .populate("followers", "-phoneNumber -password -role -__v")
-    .populate("following", "-phoneNumber -password -role -__v")
-    .then((result) => {
-      res.status(200).json({
-        success: true,
-        message: "User is found",
-        result: result,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: "Server error",
-        err: err,
-      });
-    });
-};
-
 // find users >>
 const findUsers = (req, res) => {
   const { name } = req.params;
@@ -347,5 +324,4 @@ module.exports = {
   addFollow,
   unFollow,
   updateUserInfo,
-  myInfo,
 };

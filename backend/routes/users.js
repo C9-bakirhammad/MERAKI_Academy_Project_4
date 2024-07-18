@@ -14,7 +14,6 @@ const {
   unFollow,
   getUser,
   updateUserInfo,
-  myInfo,
 } = require("../controllers/users");
 
 // From middleware folder
@@ -22,7 +21,6 @@ const { confirmPassword } = require("../middleware/confirmPassword");
 const authentication = require("../middleware/authentication");
 const authorization = require("../middleware/authorization");
 
-usersRouter.get("/info/:id", myInfo);
 usersRouter.get("/search/:country", getUsersByCountry);
 usersRouter.get("/find/:name", findUsers);
 usersRouter.get("/:id", getUserById);
