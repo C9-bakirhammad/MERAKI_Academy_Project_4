@@ -162,8 +162,8 @@ const myInfo = (req, res) => {
   const { id } = req.params;
   usersModel
     .findOne({ _id: id }, "-phoneNumber -password -role -__v")
-    .populate("followers")
-    .populate("following")
+    .populate("followers", "-phoneNumber -password -role -__v")
+    .populate("following", "-phoneNumber -password -role -__v")
     .then((result) => {
       res.status(200).json({
         success: true,
