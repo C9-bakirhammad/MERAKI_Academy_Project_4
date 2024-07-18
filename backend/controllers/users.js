@@ -118,8 +118,8 @@ const getUserById = (req, res) => {
   const { id } = req.params;
   usersModel
     .findOne({ _id: id }, "-phoneNumber -password -role -__v")
-    .populate("followers", "firstName lastName country profileImage -_id")
-    .populate("following", "firstName lastName country profileImage -_id")
+    .populate("followers", "firstName lastName country profileImage _id")
+    .populate("following", "firstName lastName country profileImage _id")
     .then((result) => {
       res.status(200).json({
         success: true,
