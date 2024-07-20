@@ -60,7 +60,7 @@ const MyInfos = () => {
       <div className="col">
         {following.map((friend, i) => {
           return (
-            <div className="ms-2 mb-2">
+            <div key={i} className="ms-2 mb-2">
               <img
                 className="rounded-circle"
                 src={friend.profileImage}

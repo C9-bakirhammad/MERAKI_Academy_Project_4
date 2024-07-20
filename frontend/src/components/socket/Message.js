@@ -49,7 +49,7 @@ const Message = ({ socket, toId, userId }) => {
           socket.emit("message", { reply, from: userId, to: toId });
         }}
       >
-        reply
+        Send
       </button>
     </div>
   );

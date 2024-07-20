@@ -5,6 +5,7 @@ import SocketInit from "./SocketInit";
 import { usersContext } from "../../App";
 import axios from "axios";
 import "./MsgComp.css";
+import { IoSearch } from "react-icons/io5";
 
 function SocketApp() {
   const { token, userInfo } = useContext(usersContext);
@@ -12,6 +13,8 @@ function SocketApp() {
   const [isConnected, setisConnected] = useState(false);
   const [myFriends, setMyFriends] = useState([]);
   const [to, setTo] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
   const userId = userInfo.userId;
 
   useEffect(() => {
@@ -37,7 +40,7 @@ function SocketApp() {
   /* ------------- */
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/users/${userId}`)
+      .get(`https://sky-hcfs.onrender.com/users/${userId}`)
       .then((result) => {
         setMyFriends(result.data.user.following);
         console.log(result.data.user.following);
@@ -49,10 +52,41 @@ function SocketApp() {
 
   /* --------------------------------- */
   return (
-    <div className="container mt-4">
+    <div className="container mt-3">
       {/* ------- Left Side ----- */}
+
       <div className="row" style={{ justifyContent: "center" }}>
-        <div className="col-4 me-3 userbg " style={{ backgroundColor: "red" }}>
+        <div className="col-4 me-3 userbg bodyLeftSideChat">
+          {/*======== search part of left side ======= */}
+          <div className="col chatSearch">
+            {" "}
+            <input
+              className="chatSearchInput"
+              placeholder=" Search"
+              onChange={(e) => {
+                setSearchValue(e.target.value.toLowerCase());
+              }}
+            />
+            <IoSearch
+              className="col chatSearchIcon"
+              style={{ cursor: "pointer" }}
+              size={40}
+              onClick={(e) => {
+                axios
+                  .get(
+                    `https://sky-hcfs.onrender.com/users/find/${searchValue}`
+                  )
+                  .then((result) => {
+                    setSearchResult(result.data.users);
+                  })
+                  .catch((err) => {
+                    console.log(err.response.data.message);
+                  });
+              }}
+            />
+          </div>
+
+          {/*======== friend list of left side ======= */}
           {myFriends.map((friend, i) => {
             return (
               <div
@@ -78,7 +112,7 @@ function SocketApp() {
         </div>
 
         {/* -------- Right Side --------- */}
-        <div className="col-6 homePostP" style={{ backgroundColor: "red" }}>
+        <div className="col-6 homePostP bodyRighttSideChat">
           {isConnected && <Message socket={socket} toId={to} userId={userId} />}
         </div>
       </div>

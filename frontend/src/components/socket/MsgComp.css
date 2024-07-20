@@ -1,6 +1,22 @@
 .MsgCompBody {
   background-color: #eeeeee;
-  height: 100%;
+  height: 100vh;
+}
+
+.bodyLeftSideChat {
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 1px 1px 4px gray;
+  overflow: auto;
+  height: 84vh;
+}
+
+.bodyRighttSideChat {
+  background-image: url("https://www.techgrapple.com/wp-content/uploads/2016/07/WhatsApp-Chat-theme-iPhone-3.jpg");
+  border-radius: 7px;
+  box-shadow: 1px 1px 4px gray;
+  overflow: auto;
+  height: 84vh;
 }
 
 .ChatLeftSide {
@@ -17,4 +33,24 @@
 
 .chatFriendName {
   margin-left: 7px;
+}
+
+.chatSearch {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.chatSearchInput {
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  padding-left: 10px;
+  height: 6vh;
+  width: 22vw;
+  box-shadow: 1px 1px 5px black;
+}
+.chatSearchIcon {
+  color: rgb(61, 61, 61);
+  margin-bottom: 5px;
 }
