@@ -6,7 +6,7 @@ const SocketInit = ({ userId, token }) => {
   /*   const { token, userInfo } = useContext(usersContext);
 const userId = userInfo.userId */
 
-  return io("http://localhost:5000/", {
+  return io("https://sky-hcfs.onrender.com", {
     extraHeaders: { userId, token },
     // autoConnect: false,
   });
