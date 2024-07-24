@@ -208,6 +208,7 @@ const Posts = () => {
                       <div className="col mt-3">
                         {" "}
                         <textarea
+                          id="comment"
                           style={{ borderRadius: "20px" }}
                           type="text"
                           className="textarea w-100"
@@ -255,6 +256,8 @@ const Posts = () => {
                               .catch((err) => {
                                 console.log(err);
                               });
+
+                            document.getElementById("comment").value = "";
                           }}
                         >
                           Add
@@ -266,6 +269,7 @@ const Posts = () => {
                           onClick={() => {
                             setPostClickId("");
                             setIsComment(!isComment);
+                            document.getElementById("comment").value = "";
                           }}
                         >
                           Close

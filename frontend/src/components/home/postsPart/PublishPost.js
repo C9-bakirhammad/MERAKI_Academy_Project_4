@@ -52,6 +52,7 @@ const PublishPost = () => {
       <div>
         <div className="col">
           <textarea
+            id="post"
             className="textarea border-0 w-100 p-2"
             rows="3"
             placeholder={`Write what's in your mind..`}
@@ -123,6 +124,8 @@ const PublishPost = () => {
                     navigate("/login");
                   }
                 });
+
+              document.getElementById("post").value = "";
             }}
           >
             Post now
