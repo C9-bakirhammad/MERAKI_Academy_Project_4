@@ -1,0 +1,11 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5%;
+}
+
+.notFoundMessage {
+  font-size: 50px;
+  font-weight: bolder;
+}

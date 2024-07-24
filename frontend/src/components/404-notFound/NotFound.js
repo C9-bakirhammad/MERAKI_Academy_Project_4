@@ -1,19 +1,19 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import "./NotFound.css";
 
 const NotFound = () => {
   const navigate = useNavigate();
   return (
-    <div>
-      {" "}
-      404-NotFound
+    <div className="notFound">
+      <p className="notFoundMessage"> 404-Not Found</p>
       <Button
         onClick={() => {
-          navigate(-1);
+          navigate("/login");
         }}
       >
-        Back
+        Back to login
       </Button>
     </div>
   );
