@@ -81,7 +81,7 @@ const Home = () => {
                 </Link>
               </div>
 
-           {/*    <div className="col" style={{ textAlign: "start" }}>
+              {/*    <div className="col" style={{ textAlign: "start" }}>
                 <Link className="nav-link active" to="/message">
                   Chatting
                 </Link>
@@ -114,7 +114,7 @@ const Home = () => {
       </nav>
       <div className="container mt-4">
         <div className="row" style={{ justifyContent: "center" }}>
-          <div className="col-4 me-3 userbg homeUserPart">
+          <div className="col-4 me-3 homeUserPart">
             <UserPart />
           </div>
           <div className="col-6 homePostP">

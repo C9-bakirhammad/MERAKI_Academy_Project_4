@@ -27,7 +27,12 @@ const Login = () => {
       <div className="container ">
         <div className="row mt-4 ms-2 me-2 subContainer">
           <div className="col me-1">
-            <h4 className="title" style={{ color: "#1B5ACF", fontSize: "70px" }}>Sky</h4>
+            <h4
+              className="title"
+              style={{ color: "#1B5ACF", fontSize: "70px" }}
+            >
+              Sky
+            </h4>
             <p className="subtitle" style={{ fontSize: "25px" }}>
               "The place where you are Free and Safe"
             </p>
@@ -88,7 +93,7 @@ const Login = () => {
 
               <div className="row">
                 <Button
-                  className="ms-3"
+                  className="btn btn-md mt-2 ms-3"
                   onClick={() => {
                     if (email === "" || password === "") {
                       return setIsEmpty(!isEmpty);
@@ -121,15 +126,58 @@ const Login = () => {
               </div>
 
               <div>
-                <div style={{ textAlign: "center" , marginTop: "5px"}}>
-              OR
+                <div
+                  style={{
+                    textAlign: "center",
+                    marginTop: "5px",
+                    fontSize: "17px",
+                  }}
+                >
+                  OR
+                </div>
+              </div>
+
+              <div className="row">
+                <Button
+                  className="btn btn-dark btn-md mt-2 ms-3"
+                  onClick={() => {
+                    setLoader(true);
+                    axios
+                      .post("https://sky-hcfs.onrender.com/users/login", {
+                        email: "guest@gmail.com",
+                        password: "Guestaccount2024",
+                      })
+                      .then((result) => {
+                        localStorage.setItem("token", result.data.token);
+                        localStorage.setItem(
+                          "UI",
+                          JSON.stringify(result.data.userInfo)
+                        );
+                        setLoader(false);
+                        setToken(result.data.token);
+                        setUserInfo(result.data.userInfo);
+                        navigate("/home");
+                      })
+                      .catch((err) => {
+                        setLoader(false);
+                        setErrResp(err.response.data.message);
+                      });
+                  }}
+                >
+                  Login As Guest
+                </Button>
+              </div>
+
+              <div>
+                <div style={{ textAlign: "center", marginTop: "10px" }}>
+                  Don't have account?
                 </div>
               </div>
 
               <div className="row">
                 {" "}
                 <Button
-                  className="btn btn-dark btn-lg mt-2 mb-3 ms-3"
+                  className="btn btn-secondary btn-sm  mt-2 mb-3 ms-3"
                   onClick={() => {
                     navigate("/register");
                   }}
