@@ -36,7 +36,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`https://sky-hcfs.onrender.com/users/${userInfo.userId}`)
+      .get(`https://sky-pwcy.onrender.com/users/${userInfo.userId}`)
       .then((result) => {
         // console.log(result.data.user);
         setProfileUser(result.data.user);
@@ -315,7 +315,7 @@ const MyProfile = () => {
                                 selectPhoto === "Profile"
                                   ? axios /*  if select Change profile photo */
                                       .put(
-                                        "https://sky-hcfs.onrender.com/users/update/info",
+                                        "https://sky-pwcy.onrender.com/users/update/info",
                                         { profileImage: updatePhoto },
                                         {
                                           headers: {
@@ -335,7 +335,7 @@ const MyProfile = () => {
                                       })
                                   : axios /* if select Change cover photo */
                                       .put(
-                                        "https://sky-hcfs.onrender.com/users/update/info",
+                                        "https://sky-pwcy.onrender.com/users/update/info",
                                         { coverImage: updatePhoto },
                                         {
                                           headers: {

@@ -49,7 +49,7 @@ const Home = () => {
               onClick={(e) => {
                 axios
                   .get(
-                    `https://sky-hcfs.onrender.com/users/find/${searchValue}`
+                    `https://sky-pwcy.onrender.com/users/find/${searchValue}`
                   )
                   .then((result) => {
                     setSearchResult(result.data.users);
@@ -80,12 +80,12 @@ const Home = () => {
                   MyProfile
                 </Link>
               </div>
-
+              {/* 
               <div className="col" style={{ textAlign: "start" }}>
                 <Link className="nav-link active" to="/message">
                   Chatting
                 </Link>
-              </div>
+              </div> */}
 
               <div className="col-1">
                 <svg

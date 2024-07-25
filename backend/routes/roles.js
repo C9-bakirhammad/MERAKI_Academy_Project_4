@@ -1,7 +1,7 @@
 const express = require("express");
 const roleRouter = express.Router();
 
-// roleRouter on https://sky-hcfs.onrender.com/role
+// roleRouter on https://sky-pwcy.onrender.com/role
 
 const { createRole, updateRolePermissions } = require("../controllers/roles");
 

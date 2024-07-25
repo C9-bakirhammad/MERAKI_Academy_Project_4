@@ -90,7 +90,7 @@ const PublishPost = () => {
             onClick={() => {
               axios
                 .post(
-                  "https://sky-hcfs.onrender.com/posts/createPost",
+                  "https://sky-pwcy.onrender.com/posts/createPost",
                   { postText, postImage },
                   {
                     headers: { Authorization: `Bearer ${token}` },

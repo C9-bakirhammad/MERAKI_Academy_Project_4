@@ -9,7 +9,7 @@ const FriendPosts = () => {
 
   useEffect(() => {
     axios
-      .get(`https://sky-hcfs.onrender.com/posts/${id}/posts`)
+      .get(`https://sky-pwcy.onrender.com/posts/${id}/posts`)
       .then((result) => {
         setFriendPosts(result.data.posts);
       })

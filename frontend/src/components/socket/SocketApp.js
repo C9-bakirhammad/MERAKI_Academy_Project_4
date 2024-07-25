@@ -10,11 +10,12 @@ import { IoSearch } from "react-icons/io5";
 function SocketApp() {
   const { token, userInfo } = useContext(usersContext);
   const [socket, setSocket] = useState(null);
-  const [isConnected, setisConnected] = useState(false);
+  const [isConnected, setisConnected] = useState(true);
   const [myFriends, setMyFriends] = useState([]);
   const [to, setTo] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const [friendInfos, setFriendInfos] = useState({});
   const userId = userInfo.userId;
 
   useEffect(() => {
@@ -40,10 +41,10 @@ function SocketApp() {
   /* ------------- */
   useEffect(() => {
     axios
-      .get(`https://sky-hcfs.onrender.com/users/${userId}`)
+      .get(`https://sky-pwcy.onrender.com/users/${userId}`)
       .then((result) => {
         setMyFriends(result.data.user.following);
-        console.log(result.data.user.following);
+        // console.log(result.data.user.following);
       })
       .catch((err) => {
         console.log(err);
@@ -74,7 +75,7 @@ function SocketApp() {
               onClick={(e) => {
                 axios
                   .get(
-                    `https://sky-hcfs.onrender.com/users/find/${searchValue}`
+                    `https://sky-pwcy.onrender.com/users/find/${searchValue}`
                   )
                   .then((result) => {
                     setSearchResult(result.data.users);
@@ -96,6 +97,18 @@ function SocketApp() {
                 onClick={() => {
                   setSocket(SocketInit({ userId, token }));
                   setTo(friend._id);
+
+                  axios
+                    .get(
+                      `https://sky-pwcy.onrender.com/users/user/${friend._id}`
+                    )
+                    .then((result) => {
+                      // console.log(result.data.user);
+                      setFriendInfos(result.data.user);
+                    })
+                    .catch((err) => {
+                      console.log(err.response.data);
+                    });
                 }}
               >
                 <img
@@ -113,7 +126,14 @@ function SocketApp() {
 
         {/* -------- Right Side --------- */}
         <div className="col-6 homePostP bodyRighttSideChat">
-          {isConnected && <Message socket={socket} toId={to} userId={userId} />}
+          {isConnected && (
+            <Message
+              socket={socket}
+              toId={to}
+              userId={userId}
+              friendInfos={friendInfos}
+            />
+          )}
         </div>
       </div>
     </div>

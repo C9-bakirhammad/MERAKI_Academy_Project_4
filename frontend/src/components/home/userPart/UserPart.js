@@ -13,7 +13,7 @@ const UserPart = () => {
 
   useEffect(() => {
     axios
-      .get(`https://sky-hcfs.onrender.com/users/search/${userInfo.country}`)
+      .get(`https://sky-pwcy.onrender.com/users/search/${userInfo.country}`)
       .then((result) => {
         setSuggeted(result.data.users);
       })
@@ -22,7 +22,7 @@ const UserPart = () => {
       });
 
     axios
-      .get(`https://sky-hcfs.onrender.com/users/user/${userInfo.userId}`)
+      .get(`https://sky-pwcy.onrender.com/users/user/${userInfo.userId}`)
       .then((result) => {
         // console.log(result.data.user);
         setProfileUser(result.data.user);

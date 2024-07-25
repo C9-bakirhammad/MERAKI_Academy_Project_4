@@ -25,7 +25,7 @@ const ProfilePosts = () => {
 
   useEffect(() => {
     axios
-      .get(`https://sky-hcfs.onrender.com/posts/${userInfo.userId}/posts`)
+      .get(`https://sky-pwcy.onrender.com/posts/${userInfo.userId}/posts`)
       .then((result) => {
         setProfilePosts(result.data.posts);
       })
@@ -105,7 +105,7 @@ const ProfilePosts = () => {
                           onClick={(e) => {
                             axios
                               .delete(
-                                `https://sky-hcfs.onrender.com/posts/${elem._id}`
+                                `https://sky-pwcy.onrender.com/posts/${elem._id}`
                               )
                               .then((result) => {
                                 let newDeletePosts = profilePosts.filter(
@@ -233,7 +233,7 @@ const ProfilePosts = () => {
                           onClick={(e) => {
                             axios
                               .post(
-                                `https://sky-hcfs.onrender.com/comments/post/${elem._id}`,
+                                `https://sky-pwcy.onrender.com/comments/post/${elem._id}`,
                                 { comment },
                                 {
                                   headers: { Authorization: `Bearer ${token}` },
@@ -305,7 +305,7 @@ const ProfilePosts = () => {
                                 onClick={() => {
                                   axios
                                     .put(
-                                      `https://sky-hcfs.onrender.com/posts/${elem._id}`,
+                                      `https://sky-pwcy.onrender.com/posts/${elem._id}`,
                                       {
                                         postText,
                                       }
@@ -412,7 +412,7 @@ const ProfilePosts = () => {
                                 likedPosts.includes(elem._id)
                                   ? axios
                                       .get(
-                                        `https://sky-hcfs.onrender.com/posts/${elem._id}/likes/remove`,
+                                        `https://sky-pwcy.onrender.com/posts/${elem._id}/likes/remove`,
                                         {
                                           headers: {
                                             Authorization: `Bearer ${token}`,
@@ -446,7 +446,7 @@ const ProfilePosts = () => {
                                       })
                                   : axios
                                       .get(
-                                        `https://sky-hcfs.onrender.com/posts/${elem._id}/likes`,
+                                        `https://sky-pwcy.onrender.com/posts/${elem._id}/likes`,
                                         {
                                           headers: {
                                             Authorization: `Bearer ${token}`,

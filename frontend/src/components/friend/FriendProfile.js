@@ -23,7 +23,7 @@ const FriendProfile = () => {
 
   useEffect(() => {
     axios //For user
-      .get(`https://sky-hcfs.onrender.com/users/user/${userInfo.userId}`)
+      .get(`https://sky-pwcy.onrender.com/users/user/${userInfo.userId}`)
       .then((result) => {
         setLikedPosts(result.data.user.likedPosts);
       })
@@ -32,7 +32,7 @@ const FriendProfile = () => {
       });
 
     axios // for friend
-      .get(`https://sky-hcfs.onrender.com/users/user/${id}`)
+      .get(`https://sky-pwcy.onrender.com/users/user/${id}`)
       .then((result) => {
         setFriendInfo(result.data.user);
         setFollower(result.data.user.followers);
@@ -129,7 +129,7 @@ const FriendProfile = () => {
                     onClick={() => {
                       axios
                         .get(
-                          `https://sky-hcfs.onrender.com/users/${id}/unFollow`,
+                          `https://sky-pwcy.onrender.com/users/${id}/unFollow`,
                           {
                             headers: { Authorization: `Bearer ${token}` },
                           }
@@ -157,7 +157,7 @@ const FriendProfile = () => {
                     onClick={() => {
                       axios
                         .get(
-                          `https://sky-hcfs.onrender.com/users/follow/${id}`,
+                          `https://sky-pwcy.onrender.com/users/follow/${id}`,
                           {
                             headers: { Authorization: `Bearer ${token}` },
                           }

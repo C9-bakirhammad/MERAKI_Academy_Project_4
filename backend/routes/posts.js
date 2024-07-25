@@ -1,7 +1,7 @@
 const express = require("express");
 const postsRouter = express.Router();
 
-// postsRouter on https://sky-hcfs.onrender.com/posts
+// postsRouter on https://sky-pwcy.onrender.com/posts
 
 const {
   createPost,
@@ -42,18 +42,18 @@ postsRouter.delete("/:id", deletePostById);
 module.exports = postsRouter;
 
 // Get >>
-// https://sky-hcfs.onrender.com/posts/authors
-// https://sky-hcfs.onrender.com/posts/:author/posts
-// https://sky-hcfs.onrender.com/posts/:postId/likes
-// https://sky-hcfs.onrender.com/posts/:postId/likes/remove
+// https://sky-pwcy.onrender.com/posts/authors
+// https://sky-pwcy.onrender.com/posts/:author/posts
+// https://sky-pwcy.onrender.com/posts/:postId/likes
+// https://sky-pwcy.onrender.com/posts/:postId/likes/remove
 
 // Post >>
-// https://sky-hcfs.onrender.com/posts/createPost
+// https://sky-pwcy.onrender.com/posts/createPost
 
 // Put >>
-// https://sky-hcfs.onrender.com/posts/:id
+// https://sky-pwcy.onrender.com/posts/:id
 //
 // 
 
 // Delete >>
-// https://sky-hcfs.onrender.com/posts/:id
+// https://sky-pwcy.onrender.com/posts/:id

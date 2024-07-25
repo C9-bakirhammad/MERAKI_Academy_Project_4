@@ -221,7 +221,7 @@ const Register = () => {
                 setLoader(true); // show the loader
 
                 axios // Sending the request
-                  .post("https://sky-hcfs.onrender.com/users/register", {
+                  .post("https://sky-pwcy.onrender.com/users/register", {
                     firstName,
                     lastName,
                     country,

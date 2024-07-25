@@ -100,7 +100,7 @@ const Login = () => {
                     }
                     setLoader(true);
                     axios
-                      .post("https://sky-hcfs.onrender.com/users/login", {
+                      .post("https://sky-pwcy.onrender.com/users/login", {
                         email,
                         password,
                       })
@@ -143,7 +143,7 @@ const Login = () => {
                   onClick={() => {
                     setLoader(true);
                     axios
-                      .post("https://sky-hcfs.onrender.com/users/login", {
+                      .post("https://sky-pwcy.onrender.com/users/login", {
                         email: "guest@gmail.com",
                         password: "Guestaccount2024",
                       })

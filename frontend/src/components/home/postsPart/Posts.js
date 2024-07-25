@@ -18,7 +18,7 @@ const Posts = () => {
 
   useEffect(() => {
     axios
-      .get(`https://sky-hcfs.onrender.com/users/user/${userInfo.userId}`)
+      .get(`https://sky-pwcy.onrender.com/users/user/${userInfo.userId}`)
       .then((result) => {
         // console.log(result.data.user);
         setLikedPosts(result.data.user.likedPosts);
@@ -28,7 +28,7 @@ const Posts = () => {
       });
 
     axios
-      .get("https://sky-hcfs.onrender.com/posts/authors", {
+      .get("https://sky-pwcy.onrender.com/posts/authors", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((result) => {
@@ -230,7 +230,7 @@ const Posts = () => {
                           onClick={(e) => {
                             axios
                               .post(
-                                `https://sky-hcfs.onrender.com/comments/post/${elem._id}`,
+                                `https://sky-pwcy.onrender.com/comments/post/${elem._id}`,
                                 { comment },
                                 {
                                   headers: { Authorization: `Bearer ${token}` },
@@ -348,7 +348,7 @@ const Posts = () => {
                                 likedPosts.includes(elem._id)
                                   ? axios
                                       .get(
-                                        `https://sky-hcfs.onrender.com/posts/${elem._id}/likes/remove`,
+                                        `https://sky-pwcy.onrender.com/posts/${elem._id}/likes/remove`,
                                         {
                                           headers: {
                                             Authorization: `Bearer ${token}`,
@@ -382,7 +382,7 @@ const Posts = () => {
                                       })
                                   : axios
                                       .get(
-                                        `https://sky-hcfs.onrender.com/posts/${elem._id}/likes`,
+                                        `https://sky-pwcy.onrender.com/posts/${elem._id}/likes`,
                                         {
                                           headers: {
                                             Authorization: `Bearer ${token}`,
