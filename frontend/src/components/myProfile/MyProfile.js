@@ -132,7 +132,7 @@ const MyProfile = () => {
               style={{ height: "65vh", width: "100%" }}
             />
           </div>
-          <div style={{ position: "absolute", top: "66%", left: "45%" }}>
+          <div style={{ position: "absolute", top: "80%", left: "41%" }}>
             <img
               src={profileUser.profileImage}
               className="mb-2"

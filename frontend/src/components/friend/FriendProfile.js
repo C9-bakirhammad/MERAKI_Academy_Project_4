@@ -89,8 +89,8 @@ const FriendProfile = () => {
           <div
             style={{
               position: "absolute",
-              top: "66%",
-              left: "43%",
+              top: "80%",
+              left: "41%",
               textAlign: "center",
             }}
           >
@@ -118,7 +118,7 @@ const FriendProfile = () => {
         </div>
 
         <div className="mt-3 ">
-          <div className="row w-100 friendUpperPart" >
+          <div className="row w-100 friendUpperPart">
             <div className="col-2"></div>
 
             <div className="col">
@@ -148,7 +148,6 @@ const FriendProfile = () => {
                     UnFollow
                   </Button>
                 </div>
-                
               ) : (
                 <div>
                   <Button
