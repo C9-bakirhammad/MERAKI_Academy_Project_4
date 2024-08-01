@@ -5,7 +5,7 @@ const Loader = () => {
   return (
     <div className="mainLoader">
       <div className="subMainLoader">
-        <p className="message">Please wait just a minute, it take time</p>
+        <p className="message">Please wait just a while</p>
         <div className="load"></div>
       </div>
     </div>
