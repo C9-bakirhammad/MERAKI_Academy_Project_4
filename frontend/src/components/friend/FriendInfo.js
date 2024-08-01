@@ -40,13 +40,15 @@ const FriendInfo = () => {
           <p className="font">
             <span>Birth Date:</span>{" "}
             <span>
-              {friendInfo.birthDate &&
-                friendInfo.birthDate
-                  .split("T")
+              {
+                friendInfo.birthDate &&
+                  friendInfo.birthDate.split(" ").slice(1, 4).join(".")
+                /*   .split("T")
                   .shift()
                   .split("-")
                   .reverse()
-                  .join(".")}
+                  .join(".") */
+              }
             </span>
           </p>
         </div>

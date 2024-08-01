@@ -3,6 +3,7 @@ import { profileContext } from "./MyProfile";
 
 const MyInfos = () => {
   const { profileUser, profilePosts, following } = useContext(profileContext);
+  console.log(profileUser.birthDate);
   return (
     <div className="col profileInfo">
       <div className="bg-white border rounded font mb-2">
@@ -40,13 +41,15 @@ const MyInfos = () => {
           <p className="font">
             <span>Birth Date:</span>{" "}
             <span>
-              {profileUser.birthDate &&
-                profileUser.birthDate
-                  .split("T")
+              {
+                profileUser.birthDate &&
+                  profileUser.birthDate.split(" ").slice(1, 4).join(".")
+                /*    .split("T")
                   .shift()
                   .split("-")
                   .reverse()
-                  .join(".")}
+                  .join(".") */
+              }
             </span>
           </p>
         </div>
